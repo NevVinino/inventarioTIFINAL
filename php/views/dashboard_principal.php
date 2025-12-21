@@ -99,20 +99,8 @@ include("../includes/verificar_acceso.php");
         </div>
 
         <!-- Fila 3 -->
-        <div class="dashboard-grid grid-3x3">
-            <!-- 7. Periféricos por tipo y estado -->
-            <div class="card">
-                <h3>Periféricos por Tipo y Estado</h3>
-                <div id="chart-perifericos-tipo"></div>
-                <div class="controls">
-                    <button type="button" class="btn-perifericos-tipo active" data-estado="Disponible">Disponible</button>
-                    <button type="button" class="btn-perifericos-tipo" data-estado="Asignado">Asignado</button>
-                    <button type="button" class="btn-perifericos-tipo" data-estado="Malogrado">Malogrado</button>
-                    <button type="button" class="btn-perifericos-tipo" data-estado="Almacen">Almacen</button>
-                </div>
-            </div>
-
-            <!-- 8. Costo y cantidad de reparaciones -->
+        <div class="dashboard-grid grid-2x3">
+            <!-- 7. Costo y cantidad de reparaciones -->
             <div class="card">
                 <h3>Reparaciones (Costo y Cantidad)</h3>
                 <div id="chart-costo-reparacion"></div>
@@ -137,7 +125,7 @@ include("../includes/verificar_acceso.php");
                 </div>
             </div>
 
-            <!-- 9. Cambio de hardware -->
+            <!-- 8. Cambio de hardware -->
             <div class="card">
                 <h3>Cambio de Hardware (Costo y Cantidad)</h3>
                 <div id="chart-costo-cambiohw"></div>
@@ -159,14 +147,8 @@ include("../includes/verificar_acceso.php");
         </div>
 
         <!-- Fila 4 -->
-        <div class="dashboard-grid grid-4x3">
-            <!-- 10. Estado de periféricos -->
-            <div class="card">
-                <h3>Estado de Periféricos</h3>
-                <div id="chart-estado-perifericos"></div>
-            </div>
-
-            <!-- 11. Tendencia de compra de activos -->
+        <div class="dashboard-grid grid-1x2">
+            <!-- 9. Tendencia de compra de activos -->
             <div class="card">
                 <h3>Tendencia de Compra de Activos</h3>
                 <div id="chart-tendencia-compra"></div>
@@ -191,12 +173,10 @@ include("../includes/verificar_acceso.php");
     <!-- Pasar datos PHP a JS -->
     <script>
         var activosTipoData = <?php echo json_encode($activos_tipo); ?>;
-        var perifericosEstadoData = <?php echo json_encode($perifericos_estado); ?>;
         var activosAlmacenLocalidadData = <?php echo json_encode($activos_almacen_localidad); ?>;
         var activosMarcaTipoData = <?php echo json_encode($activos_marca_tipo); ?>;
         var activosEstadoTipoData = <?php echo json_encode($activos_estado_tipo); ?>;
         var activosPorAreaTipoData = <?php echo json_encode($activos_por_area_tipo); ?>;
-        var perifericosTipoEstadoData = <?php echo json_encode($perifericos_tipo_estado); ?>;
         var costosReparacionTipoData = <?php echo json_encode($costos_reparacion_tipo); ?>;
         var cantReparacionTipoData = <?php echo json_encode($cant_reparacion_tipo); ?>;
         var costosCambioHWTipoData = <?php echo json_encode($costos_cambio_hw_tipo); ?>;
