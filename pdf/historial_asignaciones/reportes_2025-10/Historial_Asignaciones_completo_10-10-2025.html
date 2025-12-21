@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Reporte de Historial de Asignaciones</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                .print-btn { margin-bottom: 18px; }
+                .print-btn button { padding: 6px 12px; font-size: 14px; }
+                @media print { 
+                    .print-btn { display: none; }
+                }
+                @page { 
+                    margin: 0.5in; 
+                    size: A4;
+                    @top-left { content: ""; }
+                    @top-center { content: ""; }
+                    @top-right { content: ""; }
+                    @bottom-left { content: ""; }
+                    @bottom-center { content: ""; }
+                    @bottom-right { content: ""; }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="print-btn" style="margin-bottom: 15px;">
+                <button onclick="window.print()">🖨️ Imprimir</button>
+            </div>
+            
+            <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Reporte de Historial de Asignaciones</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 15px; color: #333; line-height: 1.3; font-size: 14px; }
+            .header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid #007bff; padding-bottom: 18px; }
+            .header h1 { margin: 0; color: #007bff; font-size: 18px; }
+            .header h2 { margin: 5px 0; color: #666; font-size: 16px; }
+            .info-section { margin-bottom: 20px; }
+            .info-section h3 { background-color: #f8f9fa; padding: 8px; margin: 0 0 10px 0; border-left: 4px solid #007bff; font-size: 14px; }
+            .estadisticas-grid { display: table; width: 100%; margin-bottom: 20px; }
+            .estadistica-item { display: table-cell; text-align: center; padding: 10px; border: 1px solid #ddd; }
+            .estadistica-numero { font-size: 24px; font-weight: bold; color: #007bff; }
+            .estadistica-label { font-size: 12px; color: #666; }
+            .filtros-aplicados { background-color: #f9f9f9; padding: 10px; margin-bottom: 20px; border-radius: 5px; }
+            .filtros-aplicados h4 { margin: 0 0 10px 0; font-size: 14px; }
+            .filtro-item { display: inline-block; margin: 5px 10px 5px 0; font-size: 12px; }
+            .tabla-datos { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 11px; }
+            .tabla-datos th { background-color: #007bff; color: white; padding: 8px 4px; text-align: left; font-size: 10px; }
+            .tabla-datos td { padding: 6px 4px; border-bottom: 1px solid #ddd; font-size: 10px; }
+            .tabla-datos tr:nth-child(even) { background-color: #f9f9f9; }
+            .estado-activo { color: #28a745; font-weight: bold; }
+            .estado-retornado { color: #6c757d; }
+            .footer { margin-top: 20px; text-align: center; font-size: 10px; color: #666; border-top: 1px solid #ddd; padding-top: 10px; }
+            
+            /* Estilos para reporte detallado */
+            .detalle-asignacion { border: 1px solid #ddd; margin-bottom: 20px; padding: 15px; page-break-inside: avoid; }
+            .detalle-header { background-color: #f8f9fa; padding: 10px; margin: -15px -15px 15px -15px; border-bottom: 1px solid #ddd; }
+            .detalle-grid { display: table; width: 100%; }
+            .detalle-seccion { margin-bottom: 15px; }
+            .detalle-seccion h4 { color: #007bff; font-size: 14px; margin: 0 0 8px 0; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+            .detalle-item { display: table-row; }
+            .detalle-label { display: table-cell; width: 30%; font-weight: bold; padding: 3px 10px 3px 0; font-size: 11px; }
+            .detalle-valor { display: table-cell; padding: 3px 0; font-size: 11px; }
+            
+            @media print {
+                body { margin: 12px; font-size: 15px; }
+                .header h1 { font-size: 18px; }
+                .header h2 { font-size: 16px; }
+                .info-section h3 { font-size: 13px; padding: 4px; }
+                .tabla-datos { font-size: 9px; }
+                .tabla-datos th { font-size: 8px; padding: 6px 3px; }
+                .tabla-datos td { font-size: 9px; padding: 4px 3px; }
+                .estadistica-numero { font-size: 20px; }
+                .detalle-asignacion { margin-bottom: 15px; padding: 10px; }
+                .detalle-label, .detalle-valor { font-size: 10px; }
+                @page { 
+                    margin: 0.5in; 
+                    size: A4;
+                    @top-left { content: ""; }
+                    @top-center { content: ""; }
+                    @top-right { content: ""; }
+                    @bottom-left { content: ""; }
+                    @bottom-center { content: ""; }
+                    @bottom-right { content: ""; }
+                }
+            }
+        </style>
+    </head>
+    <body>        
+        <div class="header">
+            <h1>REPORTE DE HISTORIAL DE ASIGNACIONES</h1>
+            <h2>Sistema de Gestión de Inventario TI</h2><p><strong>Fecha de generación:</strong> 10/10/2025 16:52:48</p><p><strong>Generado por:</strong> admin</p><p><strong>Tipo de reporte:</strong> Completo</p>
+        </div>
+    <div class="info-section">
+        <h3>📊 ESTADÍSTICAS GENERALES</h3>
+        <div class="estadisticas-grid">
+            <div class="estadistica-item">
+                <div class="estadistica-numero">4</div>
+                <div class="estadistica-label">Total Asignaciones</div>
+            </div>
+            <div class="estadistica-item">
+                <div class="estadistica-numero">1</div>
+                <div class="estadistica-label">Asignaciones Activas</div>
+            </div>
+            <div class="estadistica-item">
+                <div class="estadistica-numero">3</div>
+                <div class="estadistica-label">Asignaciones Retornadas</div>
+            </div>
+            <div class="estadistica-item">
+                <div class="estadistica-numero">2.5</div>
+                <div class="estadistica-label">Promedio Días</div>
+            </div>
+        </div>
+    </div>
+        <div class="info-section">
+            <h3>📋 RESUMEN DE ASIGNACIONES (4 registros)</h3>
+            <table class="tabla-datos">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Activo</th>
+                        <th>N° Serial</th>
+                        <th>Marca/Modelo</th>
+                        <th>Persona Asignada</th>
+                        <th>Área/Empresa</th>
+                        <th>Fecha Asignación</th>
+                        <th>Fecha Retorno</th>
+                        <th>Duración</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2007</td>
+                        <td>PC - PRUEBAPC (PRUEBAPC)</td>
+                        <td>PRUEBAPC</td>
+                        <td>HP / PRUEBAPC</td>
+                        <td>Juan Arias</td>
+                        <td>Sistemas / MINEX SAC</td>
+                        <td>10/10/2025</td>
+                        <td>10/10/2025</td>
+                        <td>0 días</td>
+                        <td><span class="estado-retornado">Retornado</span></td>
+                    </tr>
+                    <tr>
+                        <td>2008</td>
+                        <td>PC - PRUEBAPC (PRUEBAPC)</td>
+                        <td>PRUEBAPC</td>
+                        <td>HP / PRUEBAPC</td>
+                        <td>Niccol Chavez</td>
+                        <td>Comercial / MINERCOBRE S.A.C</td>
+                        <td>10/10/2025</td>
+                        <td>-</td>
+                        <td>0 días</td>
+                        <td><span class="estado-activo">Activo</span></td>
+                    </tr>
+                    <tr>
+                        <td>1008</td>
+                        <td>PC - PRUEBAPC (PRUEBAPC)</td>
+                        <td>PRUEBAPC</td>
+                        <td>HP / PRUEBAPC</td>
+                        <td>Fernando Espa</td>
+                        <td>Contabilidad / Enproyec SAC</td>
+                        <td>07/10/2025</td>
+                        <td>10/10/2025</td>
+                        <td>3 días</td>
+                        <td><span class="estado-retornado">Retornado</span></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Laptop - PCH-NB001 (ASUS modelo)</td>
+                        <td>#987654321</td>
+                        <td>Lenovo / ASUS modelo</td>
+                        <td>Niccol Chavez</td>
+                        <td>Comercial / MINERCOBRE S.A.C</td>
+                        <td>03/10/2025</td>
+                        <td>10/10/2025</td>
+                        <td>7 días</td>
+                        <td><span class="estado-retornado">Retornado</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer">
+            <p>Documento generado automáticamente por el Sistema de Gestión de Inventario TI - 10/10/2025 16:52:48 | 
+            Total de registros: 4 | Tipo: Completo</p>
+        </div>
+    </body>
+    </html>
+        </body>
+        </html>

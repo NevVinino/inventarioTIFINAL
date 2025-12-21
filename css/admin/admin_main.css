@@ -1,0 +1,1904 @@
+/* ===== ESTILOS BASE ADMIN ===== */
+
+/* Configuración base del body */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif; /* Fuente moderna y legible */
+    background-color: #d9dbde; /* Color de fondo gris claro #f4f6f8*/ 
+    margin: 0; /* Eliminar márgenes por defecto */
+    padding: 0; /* Eliminar padding por defecto */
+    font-size: 20px; /* 👈 Cambiar aquí el tamaño base de todas las letras */
+    overflow-x: hidden; /* Evitar scroll horizontal */
+    padding-top: 90px; /* Espacio para header fijo */
+}
+
+/* ===== HEADER COMÚN PARA TODAS LAS PÁGINAS ADMIN ===== */
+header {
+    background-color: #2c3e50; /* Color azul oscuro */
+    color: white; /* Texto blanco */
+    padding: 20px 40px; /* Espaciado interno */
+    display: flex; /* Usar flexbox para alineación */
+    justify-content: space-between; /* Distribuir elementos en extremos */
+    align-items: center; /* Centrar verticalmente */
+    position: fixed; /* Posición fija */
+    top: 0; /* Pegado al top */
+    left: 0; /* Desde el borde izquierdo */
+    right: 0; /* Hasta el borde derecho */
+    z-index: 1002; /* Encima de todo */
+    height: 50px; /* Altura fija del header */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+/* Lado izquierdo del header */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Botón para toggle del sidebar */
+.sidebar-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Icono hamburguesa */
+.hamburger-icon {
+    font-size: 18px;
+    display: block;
+}
+
+/* Información del usuario en el header */
+.usuario-info h1 {
+    font-size: 30px; /* 👈 Cambiar tamaño del nombre de usuario */
+    margin: 0; /* Sin márgenes */
+}
+
+/* Rol del usuario (texto secundario) */
+.usuario-info .rol {
+    font-weight: normal; /* Peso de fuente normal */
+    font-size: 20px; /* 👈 Cambiar tamaño del rol de usuario */
+    color: #ccc; /* Color gris claro */
+    margin-left: 10px; /* Separación del nombre */
+}
+
+/* Imagen del águila con efecto de brillo */
+.aguila-badge {
+    width: 50px; /* Tamaño de la imagen */
+    height: 50px; /* Altura de la imagen */
+    border-radius: 50%; /* Hacer circular */
+    margin-left: 15px; /* Separación del rol */
+    vertical-align: middle; /* Alineación vertical */
+    position: relative; /* Para el efecto de brillo */
+    background-color: white; /* Fondo blanco para contraste */
+    border: 2px solid rgba(255, 255, 255, 0.8); /* Borde más visible */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Sombra base */
+    animation: brilloMoneda 3s ease-in-out infinite; /* Animación de brillo */
+    transition: transform 0.3s ease; /* Transición suave */
+    padding: 2px; /* Pequeño padding para separar la imagen del borde */
+}
+
+/* Efecto hover para la imagen del águila */
+.aguila-badge:hover {
+    transform: scale(1.1); /* Aumentar tamaño al pasar mouse */
+}
+
+/* Animación de brillo tipo moneda */
+@keyframes brilloMoneda {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        filter: brightness(1);
+    }
+    20% {
+        box-shadow: 0 0 15px rgba(255, 223, 0, 0.7), 0 0 25px rgba(255, 223, 0, 0.5), 0 0 35px rgba(255, 255, 255, 0.4);
+        filter: brightness(1.2);
+    }
+    40% {
+        box-shadow: 0 0 20px rgba(255, 223, 0, 0.9), 0 0 30px rgba(255, 223, 0, 0.7), 0 0 40px rgba(255, 223, 0, 0.5), 0 0 50px rgba(255, 255, 255, 0.6);
+        filter: brightness(1.4);
+    }
+    60% {
+        box-shadow: 0 0 15px rgba(255, 223, 0, 0.7), 0 0 25px rgba(255, 223, 0, 0.5), 0 0 35px rgba(255, 255, 255, 0.4);
+        filter: brightness(1.2);
+    }
+    80% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        filter: brightness(1);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        filter: brightness(1);
+    }
+}
+
+/* Contenedor del avatar y botón logout */
+.avatar-contenedor {
+    display: flex; /* Flexbox para alineación horizontal */
+    align-items: center; /* Centrar verticalmente */
+    gap: 20px; /* Espacio entre elementos */
+}
+
+/* Imagen del avatar del usuario */
+.avatar {
+    width: 50px; /* Ancho fijo */
+    height: 50px; /* Alto fijo */
+    border-radius: 50%; /* Hacer circular */
+}
+
+/* Botón de cerrar sesión */
+.logout {
+    background-color: #e74c3c; /* Color rojo */
+    color: white; /* Texto blanco */
+    padding: 10px 15px; /* Espaciado interno */
+    text-decoration: none; /* Sin subrayado */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s; /* Animación suave */
+}
+
+/* Efecto hover para el botón logout */
+.logout:hover {
+    background-color: #c0392b; /* Rojo más oscuro al pasar mouse */
+}
+
+/* ===== ICONOS CSS SIN DEPENDENCIAS EXTERNAS ===== */
+.icon {
+    display: inline-block;
+    width: 16px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    position: fixed;
+    top: 90px; /* Debajo del header */
+    left: 0;
+    height: calc(100vh - 90px); /* Altura total menos el header */
+    width: 280px;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #5d6d7e 100%);
+    color: white;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 16px; /* Cambia el tamaño base de letra del sidebar */
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.sidebar-collapsed {
+    transform: translateX(-280px);
+}
+
+.sidebar-header {
+    padding: 25px 20px;
+    background: rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Enlace del header del sidebar */
+.sidebar-header-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.sidebar-header-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 20px; /* Cambia el tamaño del título del sidebar */
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar-header h2 .icon {
+    font-size: 20px;
+}
+
+/* Navegación del sidebar */
+.sidebar-nav {
+    padding: 20px 0;
+}
+
+.nav-category {
+    margin-bottom: 5px;
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.category-header:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left-color: rgba(255, 255, 255, 0.5);
+}
+
+.category-header .icon {
+    width: 20px;
+    text-align: center;
+    margin-right: 12px;
+    font-size: 16px;
+}
+
+.category-header span:nth-child(2) {
+    flex: 1;
+    font-size: 15px; /* Cambia el tamaño de la categoría */
+    font-weight: 500;
+}
+
+.arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.arrow-rotated {
+    transform: rotate(180deg);
+}
+
+/* Items de categoría */
+.category-items {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.category-expanded {
+    max-height: 500px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px 12px 50px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 15px; /* Cambia el tamaño de los ítems del sidebar */
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-left-color: #3498db;
+}
+
+.nav-item .icon {
+    width: 16px;
+    text-align: center;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+/* Overlay para móviles */
+.sidebar-overlay {
+    position: fixed;
+    top: 90px; /* Debajo del header */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 90px);
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.overlay-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Contenido principal */
+.main-content {
+    margin-left: 280px;
+    min-height: calc(100vh - 90px);
+    transition: margin-left 0.3s ease;
+    background-color: #f8f9fa;
+    padding-top: 0; /* Sin padding top ya que el body lo maneja */
+}
+
+.main-expanded {
+    margin-left: 0;
+}
+
+/* Dashboard container */
+.dashboard-container {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px 0;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #5d6d7e 100%);
+    border-radius: 15px;
+    color: white;
+}
+
+.dashboard-header h2 {
+    margin: 0 0 10px 0;
+    font-size: 32px;
+    font-weight: 600;
+    color: white;
+}
+
+.dashboard-header p {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* Stats cards */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #5d6d7e 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.stat-content h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.stat-content p {
+    margin: 0;
+    font-size: 14px;
+    color: #7f8c8d;
+    line-height: 1.4;
+}
+
+/* Quick actions */
+.quick-actions {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.quick-actions h3 {
+    margin: 0 0 25px 0;
+    color: #2c3e50;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #5d6d7e 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.4);
+    color: white;
+}
+
+.action-btn .icon {
+    font-size: 18px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px; /* Menos padding en móvil */
+    }
+    
+    header {
+        padding: 10px 20px;
+        height: 30px; /* Header más pequeño en móvil */
+    }
+    
+    .sidebar {
+        top: 70px; /* Ajustar posición del sidebar */
+        height: calc(100vh - 70px);
+        transform: translateX(-280px);
+    }
+    
+    .sidebar-mobile-open {
+        transform: translateX(0);
+    }
+    
+    .sidebar-overlay {
+        top: 70px;
+        height: calc(100vh - 70px);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        min-height: calc(100vh - 70px);
+    }
+    
+    .dashboard-container {
+        padding: 20px;
+    }
+    
+    .dashboard-header h2 {
+        font-size: 24px;
+    }
+    
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .usuario-info h1 {
+        font-size: 20px;
+    }
+    
+    .usuario-info .rol {
+        font-size: 14px;
+    }
+    
+    /* Imagen del águila más pequeña en móvil */
+    .aguila-badge {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+    }
+}
+
+/* ===== BOTÓN ATRÁS COMÚN ===== */
+.back-button {
+    display: inline-flex; /* Flexbox en línea */
+    align-items: center; /* Centrar contenido verticalmente */
+    margin: 20px 40px; /* Márgenes externos */
+    text-decoration: none; /* Sin subrayado */
+    color: #2c3e50; /* Color azul oscuro */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 15px; /* Tamaño de fuente */
+    background-color: #ecf0f1; /* Fondo gris claro */
+    padding: 6px 10px; /* Espaciado interno */
+    border-radius: 6px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Animación suave */
+}
+
+/* Efecto hover para botón atrás */
+.back-button:hover {
+    background-color: #d0d7de; /* Gris más oscuro al pasar mouse */
+}
+
+/* Imagen del botón atrás */
+.back-button img {
+    width: 40px; /* Ancho de la flecha */
+    height: 40px; /* Alto de la flecha */
+    margin-right: 20px; /* Separación del texto */
+}
+
+/* ===== ENCABEZADOS COMUNES ===== */
+h1 {
+    text-align: center; /* Centrar texto */
+    color: #ffffff; /* Color blanco */
+    font-size: 24px; /* 👈 Cambiar tamaño de títulos principales */
+}
+
+h2 {
+    text-align: center; /* Centrar texto */
+    color: #2c3e50; /* Color azul oscuro */
+    font-size: 22px; /* 👈 Cambiar tamaño de subtítulos */
+}
+
+/* ===== VISTA ADMIN - TABLA DE OPCIONES ===== */
+/* Contenedor principal de la vista admin (página principal) */
+.contenedor-tabla {
+    display: flex; /* Flexbox para centrado */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    min-height: 80vh; /* Altura mínima de viewport */
+    padding: 40px; /* Espaciado interno */
+}
+
+/* Tabla específica de la vista admin */
+.contenedor-tabla table {
+    border-spacing: 60px; /* Espaciado entre celdas */
+}
+
+/* Celdas de la tabla de opciones */
+.contenedor-tabla td {
+    text-align: center; /* Centrar contenido */
+}
+
+/* Enlaces en las celdas de opciones */
+.contenedor-tabla td a {
+    text-decoration: none; /* Sin subrayado */
+    color: #2c3e50; /* Color azul oscuro */
+    display: block; /* Ocupar todo el espacio disponible */
+    transition: transform 0.2s; /* Animación de transformación */
+}
+
+/* Efecto hover para enlaces de opciones */
+.contenedor-tabla td a:hover {
+    transform: scale(1.05); /* Aumentar tamaño ligeramente */
+}
+
+/* Imágenes de las opciones */
+.contenedor-tabla td img {
+    width: 180px; /* Ancho fijo */
+    height: 180px; /* Alto fijo */
+    border-radius: 20px; /* Bordes muy redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    margin-bottom: 12px; /* Separación del texto */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animaciones */
+}
+
+/* Efecto hover para imágenes de opciones */
+.contenedor-tabla td img:hover {
+    transform: scale(1.1); /* Aumentar tamaño más notorio */
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+}
+
+/* Texto descriptivo de las opciones */
+.contenedor-tabla td p {
+    font-size: 18px; /* Tamaño de fuente */
+    margin: 0; /* Sin márgenes */
+}
+
+/* ===== CRUD - CONTENEDOR GENERAL ===== */
+.main-container {
+    max-width: 1600px; /* Ancho máximo */
+    margin: 0 auto; /* Centrar horizontalmente */
+    padding: 40px 40px; /* Espaciado interno generoso */
+}
+
+/* ===== CRUD - TABLA DE ACTIVOS ===== */
+/* Estilos para tablas que NO son la tabla de opciones de vista admin */
+table:not(.contenedor-tabla table) {
+    width: 100%; /* Ocupar todo el ancho disponible */
+    border-collapse: separate; /* Bordes separados para border-radius */
+    border-spacing: 0; /* Sin espaciado entre celdas */
+    background-color: #fff; /* Fondo blanco */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Sombra sutil */
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden; /* Ocultar contenido que sobresale */
+}
+
+/* Celdas de encabezado y datos en tablas CRUD */
+table:not(.contenedor-tabla table) th, 
+table:not(.contenedor-tabla table) td {
+    border: 1px solid #ccc; /* Borde gris */
+    padding: 12px; /* Espaciado interno */
+    text-align: center; /* Centrar contenido */
+    font-size: 16px; /* 👈 Cambiar tamaño de texto en tablas */
+}
+
+/* Encabezados de tabla */
+table:not(.contenedor-tabla table) th {
+    background-color: #34495e; /* Fondo azul oscuro */
+    color: white; /* Texto blanco */
+}
+
+/* Filas alternadas (efecto zebra) */
+table:not(.contenedor-tabla table) tr:nth-child(even) {
+    background-color: #f9f9f9; /* Fondo gris muy claro */
+}
+
+/* Bordes redondeados en esquinas de la tabla */
+table:not(.contenedor-tabla table) th:first-child {
+    border-top-left-radius: 10px; /* Esquina superior izquierda */
+}
+
+table:not(.contenedor-tabla table) th:last-child {
+    border-top-right-radius: 10px; /* Esquina superior derecha */
+}
+
+table:not(.contenedor-tabla table) tr:last-child td:first-child {
+    border-bottom-left-radius: 10px; /* Esquina inferior izquierda */
+}
+
+table:not(.contenedor-tabla table) tr:last-child td:last-child {
+    border-bottom-right-radius: 10px; /* Esquina inferior derecha */
+}
+
+/* ===== CRUD - BARRA SUPERIOR ===== */
+/* Barra que contiene título, buscador y botón nuevo */
+.top-bar {
+    display: flex; /* Flexbox para distribución horizontal */
+    justify-content: space-between; /* Distribuir elementos */
+    align-items: center; /* Centrar verticalmente */
+    margin-bottom: 20px; /* Separación de la tabla */
+    padding: 0 10px; /* Espaciado interno lateral */
+    flex-wrap: wrap; /* Permitir salto de línea en pantallas pequeñas */
+}
+
+/* Título en la barra superior */
+.top-bar h2 {
+    flex: 1; /* Tomar espacio disponible */
+    font-size: 24px; /* 👈 Cambiar tamaño del título de página */
+    color: #2c3e50; /* Color azul oscuro */
+    margin: 0; /* Sin márgenes */
+}
+
+/* Campo de búsqueda */
+#buscador {
+    flex: 2; /* Tomar más espacio que el título */
+    padding: 8px 12px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde gris */
+    border-radius: 6px; /* Bordes redondeados */
+    font-size: 15px; /* 👈 Cambiar tamaño del texto del buscador */
+    margin-right: 10px; /* Separación del botón */
+    max-width: 300px; /* Ancho máximo */
+}
+
+/* Botón "Nuevo" y "Ingresar Almacen"*/
+#btnNuevo, #btnIngresar {
+    background-color: #3498db; /* Color azul */
+    color: white; /* Texto blanco */
+    padding: 8px 18px; /* Espaciado interno */
+    font-size: 15px; /* 👈 Cambiar tamaño del botón NUEVO */
+    border: none; /* Sin borde */
+    border-radius: 6px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+    transition: background-color 0.3s ease; /* Animación suave */
+}
+
+
+/* Efecto hover para botón nuevo */
+#btnNuevo:hover {
+    background-color: #2980b9; /* Azul más oscuro */
+}
+
+/* ===== CRUD - ESTILOS DE ESTADO DE ACTIVOS ===== */
+/* Colores de fondo según el estado del activo */
+.estado-disponible {
+    background-color: rgba(75, 181, 67, 0.1) !important; /* Verde claro transparente */
+}
+
+.estado-asignado {
+    background-color: rgba(255, 193, 7, 0.1) !important; /* Amarillo claro transparente */
+}
+
+.estado-malogrado {
+    background-color: rgba(220, 53, 69, 0.1) !important; /* Rojo claro transparente */
+}
+
+.estado-almacen {
+    background-color: rgba(55, 136, 145, 0.1) !important; /* Celeste claro transparente */
+}
+/* Colores del texto en las celdas de estado */
+.estado-disponible .estado-celda {
+    color: #2d9234; /* Verde oscuro */
+    font-weight: bold; /* Negrita */
+}
+
+.estado-asignado .estado-celda {
+    color: #856404; /* Amarillo oscuro */
+    font-weight: bold; /* Negrita */
+}
+
+.estado-malogrado .estado-celda {
+    color: #dc3545; /* Rojo */
+    font-weight: bold; /* Negrita */
+}
+.estado-almacen .estado-celda {
+    color: #15A0D4; /* Celeste */
+    font-weight: bold; /* Negrita */
+}
+
+/* ===== CRUD - ACCIONES EN TABLA ===== */
+/* Contenedor de botones de acción en cada fila */
+td .acciones {
+    display: flex; /* Flexbox para alineación horizontal */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    gap: 4px; /* Espacio pequeño entre botones */
+    flex-wrap: wrap; /* Permitir salto de línea si es necesario */
+}
+
+/* Formularios dentro de las acciones */
+td .acciones form {
+    margin: 0; /* Sin márgenes */
+    padding: 0; /* Sin padding */
+}
+
+/* Botones con iconos (ver, editar, eliminar) */
+td .acciones button.btn-icon {
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    padding: 8px; /* Espaciado interno */
+    cursor: pointer; /* Cursor de mano */
+    outline: none; /* Sin contorno de enfoque */
+    display: flex; /* Flexbox para centrar icono */
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    min-width: 36px; /* Ancho mínimo */
+    min-height: 36px; /* Alto mínimo */
+}
+
+/* ===== TAMAÑO DE ICONOS EN COLUMNA ACCIONES ===== */
+/* 🔧 EDITAR AQUÍ: Cambiar el tamaño de los iconos de acciones (ver, editar, eliminar) */
+td .acciones button.btn-icon img {
+    width: 50px;        /* 👈 Cambiar este valor para ajustar el ANCHO del icono */
+    height: 50px;       /* 👈 Cambiar este valor para ajustar la ALTURA del icono */
+    border: none; /* Sin borde */
+    border-radius: 0; /* Sin bordes redondeados */
+    box-shadow: none; /* Sin sombra */
+    transition: transform 0.2s ease; /* Animación suave */
+}
+
+/* Efecto hover para los iconos */
+td .acciones button.btn-icon:hover img {
+    transform: scale(1.1);  /* 👈 Este valor controla cuánto se agrandan al pasar el mouse */
+}
+/* ===== FIN SECCIÓN TAMAÑO DE ICONOS ===== */
+
+/* ===== CRUD - BOTONES QR ===== */
+/* Contenedor de opciones QR en cada fila */
+.opciones-qr {
+    display: flex; /* Flexbox para alineación vertical */
+    flex-direction: column; /* Dirección vertical */
+    gap: 4px; /* Espacio entre botones */
+    align-items: center; /* Centrar horizontalmente */
+    min-width: 100px; /* Ancho mínimo */
+}
+
+/* Estilo base para botones de texto */
+.btn-text {
+    background-color: #6a1b9a; /* Color morado por defecto */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    padding: 8px 12px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+    font-size: 12px; /* 👈 Cambiar tamaño de texto en botones QR */
+    font-weight: bold; /* Negrita */
+    text-decoration: none; /* Sin subrayado */
+    display: block; /* Mostrar como bloque */
+    margin: 2px 0; /* Márgenes verticales pequeños */
+    transition: background-color 0.3s ease; /* Animación suave */
+    min-width: 90px; /* Ancho mínimo */
+    text-align: center; /* Centrar texto */
+}
+
+/* Botón para generar QR */
+.btn-qr-generate {
+    background-color: #6a1b9a; /* Morado */
+}
+
+.btn-qr-generate:hover {
+    background-color: #9c27b0; /* Morado más claro al hover */
+}
+
+/* Botón para regenerar QR */
+.btn-qr-regenerate {
+    background-color: #ff9800; /* Naranja */
+}
+
+.btn-qr-regenerate:hover {
+    background-color: #f57c00; /* Naranja más oscuro al hover */
+}
+
+/* Botón para descargar QR */
+.btn-qr-download {
+    background-color: #4CAF50; /* Verde */
+}
+
+.btn-qr-download:hover {
+    background-color: #45a049; /* Verde más oscuro al hover */
+}
+
+/* Ajustar el ancho de las columnas QR para diferentes tablas */
+#tablaLaptops th:nth-child(11),
+#tablaLaptops td:nth-child(11),
+#tablaServidores th:nth-child(11),
+#tablaServidores td:nth-child(11),
+#tablaPCs th:nth-child(11),
+#tablaPCs td:nth-child(11) {
+    width: 120px; /* Ancho fijo para columna QR */
+    text-align: center; /* Centrar contenido */
+}
+
+/* ===== MODALES ===== */
+/* Overlay del modal que cubre toda la pantalla */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Posición fija */
+    z-index: 999; /* Nivel alto de apilamiento */
+    left: 0; /* Cubrir desde la izquierda */
+    top: 0; /* Cubrir desde arriba */
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    overflow: auto; /* Scroll si es necesario */
+    background-color: rgba(0,0,0,0.4); /* Fondo semi-transparente */
+}
+
+/* Contenido principal del modal */
+.modal-content {
+    background-color: #ffffff; /* Fondo blanco */
+    color: #2c3e50; /* Texto azul oscuro */
+    margin: 5% auto; /* Centrar con margen superior */
+    padding: 30px; /* Espaciado interno generoso */
+    border-radius: 15px; /* Bordes muy redondeados */
+    width: 90%; /* Ancho del 90% */
+    max-width: 500px; /* Ancho máximo */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Sombra pronunciada */
+    position: relative; /* Para posicionar elementos hijos */
+    display: flex; /* Flexbox para organización */
+    flex-direction: column; /* Dirección vertical */
+    gap: 18px; /* Espacio entre elementos */
+    font-family: 'Segoe UI', sans-serif; /* Fuente específica */
+    animation: fadeIn 0.3s ease-in-out; /* Animación de entrada */
+    font-size: 14px; /* 👈 Cambiar tamaño base de texto en modales */
+}
+
+/* Animación de aparición del modal */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; /* Empezar invisible */
+        transform: translateY(-20px); /* Empezar más arriba */
+    }
+    to { 
+        opacity: 1; /* Terminar visible */
+        transform: translateY(0); /* Posición final */
+    }
+}
+
+/* ===== MODAL - BOTONES CERRAR ===== */
+/* Botones de cerrar modales (X) */
+.close, .close-view {
+    position: absolute; /* Posición absoluta dentro del modal */
+    top: 15px; /* Distancia desde arriba */
+    right: 15px; /* Distancia desde la derecha */
+    width: 40px; /* Ancho fijo */
+    height: 40px; /* Alto fijo */
+    background-color: #e74c3c; /* Fondo rojo */
+    color: white; /* Texto blanco */
+    font-size: 22px; /* Tamaño de fuente grande */
+    font-weight: bold; /* Negrita */
+    border-radius: 50%; /* Hacer circular */
+    text-align: center; /* Centrar texto */
+    line-height: 40px; /* Centrar verticalmente */
+    cursor: pointer; /* Cursor de mano */
+    transition: background-color 0.3s, transform 0.2s; /* Animaciones */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2); /* Sombra */
+    display: flex; /* Flexbox para centrado */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    z-index: 1001; /* Nivel alto de apilamiento */
+}
+
+/* Efectos hover para botones de cerrar */
+.close:hover, .close-view:hover {
+    background-color: #c0392b; /* Rojo más oscuro */
+    transform: scale(1.1); /* Aumentar tamaño */
+}
+
+/* Variante más pequeña para modal de visualización */
+.close-view {
+    width: 32px; /* Más pequeño */
+    height: 32px; /* Más pequeño */
+    line-height: 32px; /* Ajustar centrado vertical */
+    font-size: 18px; /* Fuente más pequeña */
+    top: 12px; /* Más cerca del borde */
+    right: 12px; /* Más cerca del borde */
+}
+
+/* Efecto especial de rotación para close-view */
+.close-view:hover {
+    transform: rotate(90deg) scale(1.1); /* Rotar y aumentar */
+}
+
+/* ===== MODAL - FORMULARIOS ===== */
+/* Campos de entrada en modales */
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+    padding: 12px; /* Espaciado interno */
+    border-radius: 6px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde gris */
+    font-size: 16px; /* 👈 Cambiar tamaño de texto en campos de formulario */
+    width: 100%; /* Ancho completo */
+    box-sizing: border-box; /* Incluir padding en el ancho */
+}
+
+/* Botones en modales */
+.modal-content button {
+    margin-top: 10px; /* Margen superior */
+    padding: 12px; /* Espaciado interno */
+    background-color: #2980b9; /* Fondo azul */
+    border: none; /* Sin borde */
+    color: white; /* Texto blanco */
+    border-radius: 6px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+    font-size: 16px; /* 👈 Cambiar tamaño de texto en botones */
+    transition: background-color 0.3s ease; /* Animación suave */
+}
+
+/* Efecto hover para botones de modal */
+.modal-content button:hover {
+    background-color: #1f6393; /* Azul más oscuro */
+}
+
+/* ===== MODAL - ELEMENTOS ESPECÍFICOS ===== */
+/* Etiquetas para mostrar información calculada */
+.antiguedad-label, .estado-garantia-label {
+    font-size: 18px; /* Tamaño de fuente */
+    color: #1f6393; /* Color azul */
+    margin-left: 8px; /* Separación del campo */
+}
+
+/* Contenedor para elementos de garantía */
+.estado-garantia-container {
+    display: flex; /* Flexbox */
+    flex-direction: column; /* Dirección vertical */
+}
+
+/* Contenedor colapsable de observaciones */
+#contenedorObservaciones {
+    margin-top: 10px; /* Margen superior */
+    transition: all 0.3s ease; /* Animación suave al mostrar/ocultar */
+}
+
+/* Botones toggle para observaciones y otros elementos */
+#toggleObservaciones, .btn-toggle {
+    background-color: #007cba; /* Fondo azul */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    padding: 6px 12px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño de fuente */
+    margin-bottom: 8px; /* Margen inferior */
+    cursor: pointer; /* Cursor de mano */
+    transition: background-color 0.3s ease; /* Animación suave */
+    margin-left: 10px; /* Separación del elemento anterior */
+}
+
+/* Efecto hover para botones toggle */
+#toggleObservaciones:hover, .btn-toggle:hover {
+    background-color: #005a8b; /* Azul más oscuro */
+}
+
+/* Campo de texto de observaciones */
+textarea#observaciones {
+    resize: none; /* No permitir redimensionar */
+    min-height: 100px; /* Altura mínima */
+}
+
+/* ===== COMPONENTES Y SLOTS ===== */
+/* Sección de componentes en el formulario */
+.componentes-section {
+    border: 1px solid #e0e0e0; /* Borde gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    background-color: #f8f9fa; /* Fondo gris muy claro */
+}
+
+/* Grupos de componentes */
+.componente-grupo {
+    margin-bottom: 15px; /* Separación entre grupos */
+}
+
+/* Contenedor de componentes seleccionados */
+.componentes-seleccionados {
+    margin-top: 10px; /* Margen superior */
+    min-height: 35px; /* Altura mínima */
+}
+
+/* Tags de componentes seleccionados */
+.componente-tag {
+    display: inline-flex; /* Flexbox en línea */
+    align-items: center; /* Centrar verticalmente */
+    background-color: #e9f5ff; /* Fondo azul claro */
+    border: 1px solid #cce5ff; /* Borde azul claro */
+    border-radius: 4px; /* Bordes redondeados */
+    padding: 5px 10px; /* Espaciado interno */
+    margin: 5px; /* Márgenes alrededor */
+    font-size: 14px; /* 👈 Cambiar tamaño de texto en tags de componentes */
+}
+
+/* Botón de eliminar en tags de componentes */
+.componente-tag button {
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    color: #dc3545; /* Color rojo */
+    margin-left: 8px; /* Separación del texto */
+    cursor: pointer; /* Cursor de mano */
+    font-weight: bold; /* Negrita */
+}
+
+/* Sección de filtros de componentes */
+.filtro-componentes {
+    margin-bottom: 20px; /* Separación inferior */
+    padding: 10px; /* Espaciado interno */
+    background-color: #f5f5f5; /* Fondo gris */
+    border-radius: 5px; /* Bordes redondeados */
+    border: 1px solid #ddd; /* Borde gris */
+}
+
+/* Botón para toggle de tipos de componentes */
+.btn-toggle-tipo {
+    padding: 8px 16px; /* Espaciado interno */
+    margin-left: 10px; /* Separación del texto */
+    border: 2px solid #007bff; /* Borde azul */
+    background-color: #007bff; /* Fondo azul */
+    color: white; /* Texto blanco */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano */
+    transition: all 0.3s ease; /* Animación suave */
+}
+
+/* Efecto hover para botón toggle tipo */
+.btn-toggle-tipo:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+    border-color: #0056b3; /* Borde más oscuro */
+}
+
+/* Estado de filtro genérico */
+.btn-toggle-tipo.filtro-generico {
+    background-color: #28a745; /* Verde */
+    border-color: #28a745; /* Borde verde */
+}
+
+.btn-toggle-tipo.filtro-generico:hover {
+    background-color: #1e7e34; /* Verde más oscuro */
+    border-color: #1e7e34; /* Borde más oscuro */
+}
+
+/* Estado de filtro detallado */
+.btn-toggle-tipo.filtro-detallado {
+    background-color: #ffc107; /* Amarillo */
+    border-color: #ffc107; /* Borde amarillo */
+    color: #212529; /* Texto oscuro */
+}
+
+.btn-toggle-tipo.filtro-detallado:hover {
+    background-color: #e0a800; /* Amarillo más oscuro */
+    border-color: #e0a800; /* Borde más oscuro */
+}
+
+/* Texto de estado del filtro */
+.estado-filtro {
+    margin-left: 10px; /* Separación del botón */
+    font-style: italic; /* Texto en cursiva */
+    color: #666; /* Color gris */
+}
+
+/* Items individuales de slots */
+.slot-item {
+    margin-bottom: 10px; /* Separación entre slots */
+    display: flex; /* Flexbox para alineación */
+    align-items: center; /* Centrar verticalmente */
+    gap: 10px; /* Espacio entre elementos */
+}
+
+/* Etiquetas de slots */
+.slot-item label {
+    min-width: 80px; /* Ancho mínimo */
+    font-weight: bold; /* Negrita */
+}
+
+/* Selectores de slots */
+.slot-select {
+    flex: 1; /* Tomar espacio disponible */
+    padding: 5px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde gris */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+/* ===== MODAL VISUALIZACIÓN ===== */
+/* Modal especial para ver detalles del activo */
+.modal-content.detalles {
+    max-width: 900px; /* Ancho máximo mayor */
+    padding: 25px 35px; /* Espaciado interno generoso */
+    border-radius: 12px; /* Bordes más redondeados */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    background: linear-gradient(to bottom, #ffffff, #f8f9fa); /* Gradiente sutil */
+    max-height: 90vh; /* Altura máxima */
+    overflow-y: auto; /* Scroll vertical si es necesario */
+}
+
+/* Título del modal de detalles */
+.modal-content.detalles h3 {
+    color: #2c3e50; /* Color azul oscuro */
+    text-align: center; /* Centrar texto */
+    font-size: 24px; /* 👈 Cambiar tamaño del título del modal de detalles */
+    margin-bottom: 20px; /* Margen inferior */
+    padding-bottom: 10px; /* Espaciado inferior */
+    border-bottom: 2px solid #e9ecef; /* Línea separadora */
+}
+
+/* Grid para organizar las secciones de detalles */
+.detalles-grid {
+    display: grid; /* CSS Grid */
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    gap: 15px 25px; /* Espacios entre elementos */
+    margin-bottom: 0; /* Sin margen inferior */
+}
+
+/* Secciones individuales de detalles */
+.seccion-detalles {
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+    border: 1px solid #e9ecef; /* Borde gris claro */
+}
+
+/* Títulos de las secciones de detalles */
+.seccion-detalles h4 {
+    color: #3498db; /* Color azul */
+    margin: 0 0 12px 0; /* Márgenes específicos */
+    padding-bottom: 8px; /* Espaciado inferior */
+    border-bottom: 1px solid #e9ecef; /* Línea separadora */
+    font-size: 16px; /* 👈 Cambiar tamaño de títulos de sección */
+    font-weight: 600; /* Semi-negrita */
+}
+
+/* Items individuales de detalle */
+.detalle-item {
+    margin-bottom: 10px; /* Separación entre items */
+    padding: 8px 0; /* Espaciado vertical */
+    border-bottom: 1px dotted #ecf0f1; /* Línea separadora punteada */
+}
+
+/* Último item sin línea separadora */
+.detalle-item:last-child {
+    border-bottom: none; /* Sin línea inferior */
+    margin-bottom: 0; /* Sin margen inferior */
+}
+
+/* Etiquetas en items de detalle */
+.detalle-item strong {
+    display: block; /* Mostrar como bloque */
+    margin-bottom: 4px; /* Separación del valor */
+    color: #2c3e50; /* Color azul oscuro */
+    font-size: 14px; /* 👈 Cambiar tamaño de etiquetas en detalles */
+    font-weight: 600; /* Negrita */
+}
+
+/* Valores en items de detalle */
+.detalle-item span {
+    display: block; /* Mostrar como bloque */
+    color: #34495e; /* Color gris azulado */
+    font-size: 15px; /* 👈 Cambiar tamaño de valores en detalles */
+    line-height: 1.4; /* Altura de línea para legibilidad */
+    word-wrap: break-word; /* Romper palabras largas */
+}
+
+/* Lista de componentes en el modal */
+.componentes-lista {
+    margin: 0; /* Sin márgenes */
+    padding-left: 18px; /* Sangría para viñetas */
+}
+
+/* Items de la lista de componentes */
+.componentes-lista li {
+    margin-bottom: 4px; /* Separación entre items */
+    padding: 2px 0; /* Espaciado vertical */
+    color: #2c3e50; /* Color azul oscuro */
+    font-size: 14px; /* 👈 Cambiar tamaño de texto en listas de componentes */
+}
+
+/* Sección de observaciones que ocupa ancho completo */
+.seccion-detalles.observaciones-section {
+    grid-column: span 2; /* Ocupar ambas columnas */
+}
+
+/* Items de observaciones sin línea separadora */
+.observaciones-item {
+    border-bottom: none; /* Sin línea inferior */
+    margin-bottom: 0; /* Sin margen inferior */
+}
+
+/* Texto de observaciones */
+.observaciones-texto {
+    background-color: #f8f9fa; /* Fondo gris claro */
+    padding: 12px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+    border-left: 4px solid #3498db; /* Barra lateral azul */
+    font-style: italic; /* Texto en cursiva */
+    line-height: 1.5; /* Altura de línea */
+    min-height: 60px; /* Altura mínima */
+}
+
+/* Observaciones vacías */
+.observaciones-texto.sin-contenido {
+    color: #95a5a6; /* Color gris */
+    text-align: center; /* Centrar texto */
+}
+
+/* Observaciones con contenido */
+.observaciones-texto.con-contenido {
+    color: #2c3e50; /* Color azul oscuro */
+}
+
+/* Sección de QR que ocupa ancho completo */
+.qr-section {
+    grid-column: span 2; /* Ocupar ambas columnas */
+    margin-top: 5px; /* Margen superior */
+}
+
+/* Contenedor del código QR */
+.qr-container {
+    display: flex; /* Flexbox */
+    flex-direction: column; /* Dirección vertical */
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
+    text-align: center; /* Centrar texto */
+    background-color: #f8f9fa; /* Fondo gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05); /* Sombra sutil */
+    border: 1px solid #e9ecef; /* Borde gris claro */
+}
+
+/* Título del contenedor QR */
+.qr-container h4 {
+    margin: 0 0 15px 0; /* Márgenes específicos */
+    color: #3498db; /* Color azul */
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+/* Contenedor de la imagen QR */
+#view-qr {
+    display: flex; /* Flexbox */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    margin: 10px 0; /* Márgenes verticales */
+}
+
+/* Imagen del código QR */
+.qr-image {
+    max-width: 180px; /* Ancho máximo */
+    max-height: 180px; /* Alto máximo */
+    border: 2px solid #e9ecef; /* Borde gris */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra */
+    padding: 8px; /* Espaciado interno */
+    background-color: white; /* Fondo blanco */
+    transition: all 0.3s ease; /* Animación suave */
+}
+
+/* Efecto hover para imagen QR */
+.qr-image:hover {
+    transform: scale(1.05); /* Aumentar tamaño */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15); /* Sombra más pronunciada */
+    border-color: #3498db; /* Borde azul */
+}
+
+/* Botón de descarga en el contenedor QR */
+.qr-container .btn-download, .btn-download {
+    display: inline-block; /* Mostrar en línea */
+    margin-top: 15px; /* Margen superior */
+    padding: 10px 20px; /* Espaciado interno */
+    background-color: #3498db; /* Fondo azul */
+    color: white; /* Texto blanco */
+    text-decoration: none; /* Sin subrayado */
+    border-radius: 25px; /* Bordes muy redondeados */
+    font-weight: 500; /* Semi-negrita */
+    font-size: 14px; /* Tamaño de fuente */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1); /* Sombra */
+    transition: all 0.3s ease; /* Animación suave */
+    border: none; /* Sin borde */
+}
+
+/* Efecto hover para botón de descarga */
+.qr-container .btn-download:hover, .btn-download:hover {
+    background-color: #2980b9; /* Azul más oscuro */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Sombra más pronunciada */
+    transform: translateY(-2px); /* Mover hacia arriba */
+}
+
+/* ===== ESTADOS ESPECÍFICOS ===== */
+/* Campos importantes en negrita */
+#view-nombreequipo, #view-serial {
+    font-weight: 600; /* Semi-negrita */
+    color: #2c3e50; /* Color azul oscuro */
+}
+
+/* Colores según el estado del activo */
+#view-estado[data-estado="Disponible"] {
+    color: #27ae60; /* Verde */
+    font-weight: bold; /* Negrita */
+}
+
+#view-estado[data-estado="Asignado"] {
+    color: #f39c12; /* Naranja */
+    font-weight: bold; /* Negrita */
+}
+
+#view-estado[data-estado="Malogrado"] {
+    color: #e74c3c; /* Rojo */
+    font-weight: bold; /* Negrita */
+}
+
+#view-estado[data-estado="Almacen"] {
+    color: #15A0D4; /* Celeste */
+    font-weight: bold; /* Negrita */
+}
+
+/* Estados de garantía con colores específicos */
+.estado-garantia-vigente {
+    color: #27ae60; /* Verde */
+    font-weight: bold; /* Negrita */
+}
+
+.estado-garantia-no-vigente {
+    color: #e74c3c; /* Rojo */
+    font-weight: bold; /* Negrita */
+}
+
+.estado-garantia-sin {
+    color: #95a5a6; /* Gris */
+    font-style: italic; /* Cursiva */
+}
+
+/* ===== ALERTAS ===== */
+/* Alerta de error */
+.alerta-error {
+    background-color: #f8d7da; /* Fondo rojo claro */
+    color: #721c24; /* Texto rojo oscuro */
+    border: 1px solid #f5c6cb; /* Borde rojo claro */
+    padding: 12px 20px; /* Espaciado interno */
+    margin: 20px auto; /* Centrar con márgenes */
+    width: 80%; /* Ancho del 80% */
+    text-align: center; /* Centrar texto */
+    border-radius: 5px; /* Bordes redondeados */
+    font-weight: bold; /* Negrita */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra */
+}
+
+/* Alerta de éxito */
+.alerta-exito {
+    background-color: #d4edda; /* Fondo verde claro */
+    color: #155724; /* Texto verde oscuro */
+    border: 1px solid #c3e6cb; /* Borde verde claro */
+    padding: 12px 20px; /* Espaciado interno */
+    margin: 20px auto; /* Centrar con márgenes */
+    width: 80%; /* Ancho del 80% */
+    text-align: center; /* Centrar texto */
+    border-radius: 5px; /* Bordes redondeados */
+    font-weight: bold; /* Negrita */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra */
+}
+
+/* ===== RESPONSIVE ===== */
+/* Adaptaciones para pantallas pequeñas */
+@media (max-width: 768px) {
+    /* Modal de detalles en móviles */
+    .modal-content.detalles {
+        max-width: 95%; /* Ancho casi completo */
+        padding: 20px; /* Menos espaciado */
+        margin: 2% auto; /* Márgenes reducidos */
+    }
+    
+    /* Grid de una sola columna en móviles */
+    .detalles-grid {
+        grid-template-columns: 1fr; /* Una sola columna */
+        gap: 15px; /* Espacio reducido */
+    }
+    
+    /* Secciones de ancho completo en móviles */
+    .qr-section,
+    .seccion-detalles.observaciones-section {
+        grid-column: span 1; /* Una columna */
+    }
+    
+    /* Imagen QR más pequeña en móviles */
+    .qr-image {
+        max-width: 150px; /* Ancho reducido */
+        max-height: 150px; /* Alto reducido */
+    }
+    
+    /* Barra superior en columna en móviles */
+    .top-bar {
+        flex-direction: column; /* Dirección vertical */
+        gap: 10px; /* Espacio entre elementos */
+    }
+    
+    /* Buscador de ancho completo en móviles */
+    #buscador {
+        max-width: 100%; /* Ancho completo */
+        margin-right: 0; /* Sin margen derecho */
+    }
+}
+
+/* ===== CRUD REPARACIONES - ESTILOS ESPECÍFICOS ===== */
+
+/* Contenedor de filtros para reparaciones */
+.filtros-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filtros-container select,
+.filtros-container input[type="date"] {
+    flex: 1;
+    min-width: 200px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn-filtro {
+    background-color: #17a2b8;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-filtro:hover {
+    background-color: #138496;
+}
+
+/* Modal específico para cambios de hardware */
+.modal-content.modal-hardware {
+    max-width: 1200px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Estilos para modal de cambios de hardware */
+.modal-content.cambios-hardware {
+    max-width: 90%;
+    width: 1200px;
+}
+
+.hardware-actions {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.btn-nuevo-cambio {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn-nuevo-cambio:hover {
+    background-color: #218838;
+}
+
+/* Tabla de cambios de hardware */
+#tablaCambiosHardware {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+#tablaCambiosHardware th,
+#tablaCambiosHardware td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+#tablaCambiosHardware th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+}
+
+#tablaCambiosHardware tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Botones en tabla de cambios de hardware */
+#tablaCambiosHardware .btn-icon {
+    padding: 4px 6px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+#tablaCambiosHardware .btn-icon:hover {
+    background-color: #dc3545;
+}
+
+#tablaCambiosHardware .btn-icon img {
+    width: 16px;
+    height: 16px;
+}
+
+/* Formulario de cambio de hardware */
+.form-cambio {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #dee2e6;
+}
+
+.form-cambio h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #495057;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #495057;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.form-help {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Secciones de componentes */
+.componente-section {
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+/* Filtro de componentes */
+.filtro-componentes-hardware {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-filtro-hardware {
+    padding: 6px 12px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.2s;
+}
+
+.btn-filtro-hardware:hover {
+    background-color: #5a6268;
+}
+
+.btn-filtro-hardware.filtro-generico {
+    background-color: #28a745;
+}
+
+.btn-filtro-hardware.filtro-detallado {
+    background-color: #007bff;
+}
+
+.estado-filtro {
+    font-size: 12px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Botones de acción del formulario */
+.form-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #dee2e6;
+}
+
+.btn-guardar {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-guardar:hover {
+    background-color: #218838;
+}
+
+.btn-cancelar {
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-cancelar:hover {
+    background-color: #5a6268;
+}
+
+.btn-nuevo-cambio {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.btn-nuevo-cambio:hover {
+    background-color: #0056b3;
+}
+
+/* Hardware actions */
+.hardware-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+/* Ajustes específicos para columnas de la tabla */
+#tablaCambiosHardware th:nth-child(1),
+#tablaCambiosHardware td:nth-child(1) {
+    width: 12%;
+}
+
+#tablaCambiosHardware th:nth-child(2),
+#tablaCambiosHardware td:nth-child(2) {
+    width: 12%;
+}
+
+#tablaCambiosHardware th:nth-child(3),
+#tablaCambiosHardware td:nth-child(3) {
+    width: 20%;
+}
+
+#tablaCambiosHardware th:nth-child(4),
+#tablaCambiosHardware td:nth-child(4) {
+    width: 20%;
+}
+
+#tablaCambiosHardware th:nth-child(5),
+#tablaCambiosHardware td:nth-child(5) {
+    width: 10%;
+    text-align: center;
+}
+
+#tablaCambiosHardware th:nth-child(6),
+#tablaCambiosHardware td:nth-child(6) {
+    width: 18%;
+}
+
+#tablaCambiosHardware th:nth-child(7),
+#tablaCambiosHardware td:nth-child(7) {
+    width: 8%;
+    text-align: center;
+}
+
+/* Estilos para filtros de componentes en reparaciones */
+.filtro-componentes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-toggle-tipo {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-toggle-tipo:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-toggle-tipo.filtro-generico {
+    background-color: #e8f4fd;
+    border-color: #007acc;
+    color: #007acc;
+}
+
+.btn-toggle-tipo.filtro-detallado {
+    background-color: #fff3cd;
+    border-color: #856404;
+    color: #856404;
+}
+
+.estado-filtro {
+    font-size: 11px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Estilos para los optgroups en los selects */
+optgroup {
+    font-weight: bold;
+    font-style: normal;
+}
+
+optgroup[label*="Genéricos"] {
+    color: #007acc;
+}
+
+optgroup[label*="Detallados"] {
+    color: #856404;
+}
+
+/* Estilos para el contenedor de links en el modal de visualización */
+.link-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.link-abrir {
+    color: #007bff;
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: rgba(0, 123, 255, 0.1);
+    transition: background-color 0.2s;
+}
+
+.link-abrir:hover {
+    background-color: rgba(0, 123, 255, 0.2);
+    text-decoration: underline;
+}
+
+.link-texto {
+    font-style: italic;
+    color: #666;
+    max-width: 200px;
+    word-break: break-all;
+    font-size: 0.9em;
+}
+
+.btn-copiar-link {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: background-color 0.2s;
+}
+
+.btn-copiar-link:hover {
+    background-color: #5a6268;
+}
+
+.btn-copiar-link:active {
+    transform: scale(0.95);
+}

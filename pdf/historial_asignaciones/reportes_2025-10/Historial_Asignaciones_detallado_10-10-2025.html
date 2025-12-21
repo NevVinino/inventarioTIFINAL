@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Reporte de Historial de Asignaciones</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                .print-btn { margin-bottom: 18px; }
+                .print-btn button { padding: 6px 12px; font-size: 14px; }
+                @media print { 
+                    .print-btn { display: none; }
+                }
+                @page { 
+                    margin: 0.5in; 
+                    size: A4;
+                    @top-left { content: ""; }
+                    @top-center { content: ""; }
+                    @top-right { content: ""; }
+                    @bottom-left { content: ""; }
+                    @bottom-center { content: ""; }
+                    @bottom-right { content: ""; }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="print-btn" style="margin-bottom: 15px;">
+                <button onclick="window.print()">🖨️ Imprimir</button>
+            </div>
+            
+            <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Reporte de Historial de Asignaciones</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 15px; color: #333; line-height: 1.3; font-size: 14px; }
+            .header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid #007bff; padding-bottom: 18px; }
+            .header h1 { margin: 0; color: #007bff; font-size: 18px; }
+            .header h2 { margin: 5px 0; color: #666; font-size: 16px; }
+            .info-section { margin-bottom: 20px; }
+            .info-section h3 { background-color: #f8f9fa; padding: 8px; margin: 0 0 10px 0; border-left: 4px solid #007bff; font-size: 14px; }
+            .estadisticas-grid { display: table; width: 100%; margin-bottom: 20px; }
+            .estadistica-item { display: table-cell; text-align: center; padding: 10px; border: 1px solid #ddd; }
+            .estadistica-numero { font-size: 24px; font-weight: bold; color: #007bff; }
+            .estadistica-label { font-size: 12px; color: #666; }
+            .filtros-aplicados { background-color: #f9f9f9; padding: 10px; margin-bottom: 20px; border-radius: 5px; }
+            .filtros-aplicados h4 { margin: 0 0 10px 0; font-size: 14px; }
+            .filtro-item { display: inline-block; margin: 5px 10px 5px 0; font-size: 12px; }
+            .tabla-datos { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 11px; }
+            .tabla-datos th { background-color: #007bff; color: white; padding: 8px 4px; text-align: left; font-size: 10px; }
+            .tabla-datos td { padding: 6px 4px; border-bottom: 1px solid #ddd; font-size: 10px; }
+            .tabla-datos tr:nth-child(even) { background-color: #f9f9f9; }
+            .estado-activo { color: #28a745; font-weight: bold; }
+            .estado-retornado { color: #6c757d; }
+            .footer { margin-top: 20px; text-align: center; font-size: 10px; color: #666; border-top: 1px solid #ddd; padding-top: 10px; }
+            
+            /* Estilos para reporte detallado */
+            .detalle-asignacion { border: 1px solid #ddd; margin-bottom: 20px; padding: 15px; page-break-inside: avoid; }
+            .detalle-header { background-color: #f8f9fa; padding: 10px; margin: -15px -15px 15px -15px; border-bottom: 1px solid #ddd; }
+            .detalle-grid { display: table; width: 100%; }
+            .detalle-seccion { margin-bottom: 15px; }
+            .detalle-seccion h4 { color: #007bff; font-size: 14px; margin: 0 0 8px 0; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+            .detalle-item { display: table-row; }
+            .detalle-label { display: table-cell; width: 30%; font-weight: bold; padding: 3px 10px 3px 0; font-size: 11px; }
+            .detalle-valor { display: table-cell; padding: 3px 0; font-size: 11px; }
+            
+            @media print {
+                body { margin: 12px; font-size: 15px; }
+                .header h1 { font-size: 18px; }
+                .header h2 { font-size: 16px; }
+                .info-section h3 { font-size: 13px; padding: 4px; }
+                .tabla-datos { font-size: 9px; }
+                .tabla-datos th { font-size: 8px; padding: 6px 3px; }
+                .tabla-datos td { font-size: 9px; padding: 4px 3px; }
+                .estadistica-numero { font-size: 20px; }
+                .detalle-asignacion { margin-bottom: 15px; padding: 10px; }
+                .detalle-label, .detalle-valor { font-size: 10px; }
+                @page { 
+                    margin: 0.5in; 
+                    size: A4;
+                    @top-left { content: ""; }
+                    @top-center { content: ""; }
+                    @top-right { content: ""; }
+                    @bottom-left { content: ""; }
+                    @bottom-center { content: ""; }
+                    @bottom-right { content: ""; }
+                }
+            }
+        </style>
+    </head>
+    <body>        
+        <div class="header">
+            <h1>REPORTE DE HISTORIAL DE ASIGNACIONES</h1>
+            <h2>Sistema de Gestión de Inventario TI</h2><p><strong>Fecha de generación:</strong> 10/10/2025 18:37:23</p><p><strong>Generado por:</strong> Steven</p><p><strong>Tipo de reporte:</strong> Detallado</p>
+        </div>
+    <div class="info-section">
+        <h3>📊 ESTADÍSTICAS GENERALES</h3>
+        <div class="estadisticas-grid">
+            <div class="estadistica-item">
+                <div class="estadistica-numero">4</div>
+                <div class="estadistica-label">Total Asignaciones</div>
+            </div>
+            <div class="estadistica-item">
+                <div class="estadistica-numero">1</div>
+                <div class="estadistica-label">Asignaciones Activas</div>
+            </div>
+            <div class="estadistica-item">
+                <div class="estadistica-numero">3</div>
+                <div class="estadistica-label">Asignaciones Retornadas</div>
+            </div>
+            <div class="estadistica-item">
+                <div class="estadistica-numero">2.5</div>
+                <div class="estadistica-label">Promedio Días</div>
+            </div>
+        </div>
+    </div>
+        <div class="info-section">
+            <h3>📋 DETALLE COMPLETO DE ASIGNACIONES (4 registros)</h3>
+            <div class="detalle-asignacion">
+                <div class="detalle-header">
+                    <h3 style="margin: 0; color: #007bff;">Asignación #2007 - PC - PRUEBAPC (PRUEBAPC)</h3>
+                </div>
+                
+                <div class="detalle-grid">
+                    <div style="display: table-row;">
+                        <!-- Columna 1: Información de la Persona -->
+                        <div style="display: table-cell; width: 50%; vertical-align: top; padding-right: 15px;">
+                            <div class="detalle-seccion">
+                                <h4>👤 Información de la Persona</h4>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Nombre:</div>
+                                    <div class="detalle-valor">Juan Arias</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Email:</div>
+                                    <div class="detalle-valor">JArias@grupovalor.com</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Teléfono:</div>
+                                    <div class="detalle-valor">987654322</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Área:</div>
+                                    <div class="detalle-valor">Sistemas</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Empresa:</div>
+                                    <div class="detalle-valor">MINEX SAC</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Localidad:</div>
+                                    <div class="detalle-valor">Lima</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Tipo Persona:</div>
+                                    <div class="detalle-valor">Gerente</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Situación:</div>
+                                    <div class="detalle-valor">Contratado</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Columna 2: Información del Activo y Asignación -->
+                        <div style="display: table-cell; width: 50%; vertical-align: top;">
+                            <div class="detalle-seccion">
+                                <h4>💻 Información del Activo</h4>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Tipo:</div>
+                                    <div class="detalle-valor">PC</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Descripción:</div>
+                                    <div class="detalle-valor">PC - PRUEBAPC (PRUEBAPC)</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">N° Serial:</div>
+                                    <div class="detalle-valor">PRUEBAPC</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Marca:</div>
+                                    <div class="detalle-valor">HP</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Modelo:</div>
+                                    <div class="detalle-valor">PRUEBAPC</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detalle-seccion">
+                                <h4>📅 Información de la Asignación</h4>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Fecha Asignación:</div>
+                                    <div class="detalle-valor">10/10/2025</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Fecha Retorno:</div>
+                                    <div class="detalle-valor">10/10/2025</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Duración:</div>
+                                    <div class="detalle-valor">0 días</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Estado:</div>
+                                    <div class="detalle-valor"><span class="estado-retornado">Retornado</span></div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Usuario Asignó:</div>
+                                    <div class="detalle-valor">Steven</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="detalle-seccion" style="margin-top: 10px;">
+                    <h4>📝 Observaciones</h4>
+                    <p style="margin: 5px 0; font-size: 11px; line-height: 1.4;">aaaa | RETORNO </p>
+                </div></div>
+            <div class="detalle-asignacion">
+                <div class="detalle-header">
+                    <h3 style="margin: 0; color: #007bff;">Asignación #2008 - PC - PRUEBAPC (PRUEBAPC)</h3>
+                </div>
+                
+                <div class="detalle-grid">
+                    <div style="display: table-row;">
+                        <!-- Columna 1: Información de la Persona -->
+                        <div style="display: table-cell; width: 50%; vertical-align: top; padding-right: 15px;">
+                            <div class="detalle-seccion">
+                                <h4>👤 Información de la Persona</h4>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Nombre:</div>
+                                    <div class="detalle-valor">Niccol Chavez</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Email:</div>
+                                    <div class="detalle-valor">NChavez@grupovalor.com</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Teléfono:</div>
+                                    <div class="detalle-valor">987654321</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Área:</div>
+                                    <div class="detalle-valor">Comercial</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Empresa:</div>
+                                    <div class="detalle-valor">MINERCOBRE S.A.C</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Localidad:</div>
+                                    <div class="detalle-valor">Lima</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Tipo Persona:</div>
+                                    <div class="detalle-valor">Personal</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Situación:</div>
+                                    <div class="detalle-valor">Contratado</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Columna 2: Información del Activo y Asignación -->
+                        <div style="display: table-cell; width: 50%; vertical-align: top;">
+                            <div class="detalle-seccion">
+                                <h4>💻 Información del Activo</h4>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Tipo:</div>
+                                    <div class="detalle-valor">PC</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Descripción:</div>
+                                    <div class="detalle-valor">PC - PRUEBAPC (PRUEBAPC)</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">N° Serial:</div>
+                                    <div class="detalle-valor">PRUEBAPC</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Marca:</div>
+                                    <div class="detalle-valor">HP</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Modelo:</div>
+                                    <div class="detalle-valor">PRUEBAPC</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detalle-seccion">
+                                <h4>📅 Información de la Asignación</h4>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Fecha Asignación:</div>
+                                    <div class="detalle-valor">10/10/2025</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Fecha Retorno:</div>
+                                    <div class="detalle-valor">-</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Duración:</div>
+                                    <div class="detalle-valor">0 días</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Estado:</div>
+                                    <div class="detalle-valor"><span class="estado-activo">Activo</span></div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Usuario Asignó:</div>
+                                    <div class="detalle-valor">Steven</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div></div>
+            <div class="detalle-asignacion">
+                <div class="detalle-header">
+                    <h3 style="margin: 0; color: #007bff;">Asignación #1008 - PC - PRUEBAPC (PRUEBAPC)</h3>
+                </div>
+                
+                <div class="detalle-grid">
+                    <div style="display: table-row;">
+                        <!-- Columna 1: Información de la Persona -->
+                        <div style="display: table-cell; width: 50%; vertical-align: top; padding-right: 15px;">
+                            <div class="detalle-seccion">
+                                <h4>👤 Información de la Persona</h4>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Nombre:</div>
+                                    <div class="detalle-valor">Fernando Espa</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Email:</div>
+                                    <div class="detalle-valor">FEspa@grupovalor.com</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Teléfono:</div>
+                                    <div class="detalle-valor">987654666</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Área:</div>
+                                    <div class="detalle-valor">Contabilidad</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Empresa:</div>
+                                    <div class="detalle-valor">Enproyec SAC</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Localidad:</div>
+                                    <div class="detalle-valor">Lima</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Tipo Persona:</div>
+                                    <div class="detalle-valor">Gerente</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Situación:</div>
+                                    <div class="detalle-valor">Contratado</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Columna 2: Información del Activo y Asignación -->
+                        <div style="display: table-cell; width: 50%; vertical-align: top;">
+                            <div class="detalle-seccion">
+                                <h4>💻 Información del Activo</h4>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Tipo:</div>
+                                    <div class="detalle-valor">PC</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Descripción:</div>
+                                    <div class="detalle-valor">PC - PRUEBAPC (PRUEBAPC)</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">N° Serial:</div>
+                                    <div class="detalle-valor">PRUEBAPC</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Marca:</div>
+                                    <div class="detalle-valor">HP</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Modelo:</div>
+                                    <div class="detalle-valor">PRUEBAPC</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detalle-seccion">
+                                <h4>📅 Información de la Asignación</h4>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Fecha Asignación:</div>
+                                    <div class="detalle-valor">07/10/2025</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Fecha Retorno:</div>
+                                    <div class="detalle-valor">10/10/2025</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Duración:</div>
+                                    <div class="detalle-valor">3 días</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Estado:</div>
+                                    <div class="detalle-valor"><span class="estado-retornado">Retornado</span></div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Usuario Asignó:</div>
+                                    <div class="detalle-valor">Steven</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div></div>
+            <div class="detalle-asignacion">
+                <div class="detalle-header">
+                    <h3 style="margin: 0; color: #007bff;">Asignación #9 - Laptop - PCH-NB001 (ASUS modelo)</h3>
+                </div>
+                
+                <div class="detalle-grid">
+                    <div style="display: table-row;">
+                        <!-- Columna 1: Información de la Persona -->
+                        <div style="display: table-cell; width: 50%; vertical-align: top; padding-right: 15px;">
+                            <div class="detalle-seccion">
+                                <h4>👤 Información de la Persona</h4>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Nombre:</div>
+                                    <div class="detalle-valor">Niccol Chavez</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Email:</div>
+                                    <div class="detalle-valor">NChavez@grupovalor.com</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Teléfono:</div>
+                                    <div class="detalle-valor">987654321</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Área:</div>
+                                    <div class="detalle-valor">Comercial</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Empresa:</div>
+                                    <div class="detalle-valor">MINERCOBRE S.A.C</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Localidad:</div>
+                                    <div class="detalle-valor">Lima</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Tipo Persona:</div>
+                                    <div class="detalle-valor">Personal</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Situación:</div>
+                                    <div class="detalle-valor">Contratado</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Columna 2: Información del Activo y Asignación -->
+                        <div style="display: table-cell; width: 50%; vertical-align: top;">
+                            <div class="detalle-seccion">
+                                <h4>💻 Información del Activo</h4>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Tipo:</div>
+                                    <div class="detalle-valor">Laptop</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Descripción:</div>
+                                    <div class="detalle-valor">Laptop - PCH-NB001 (ASUS modelo)</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">N° Serial:</div>
+                                    <div class="detalle-valor">#987654321</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Marca:</div>
+                                    <div class="detalle-valor">Lenovo</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Modelo:</div>
+                                    <div class="detalle-valor">ASUS modelo</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detalle-seccion">
+                                <h4>📅 Información de la Asignación</h4>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Fecha Asignación:</div>
+                                    <div class="detalle-valor">03/10/2025</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Fecha Retorno:</div>
+                                    <div class="detalle-valor">10/10/2025</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Duración:</div>
+                                    <div class="detalle-valor">7 días</div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Estado:</div>
+                                    <div class="detalle-valor"><span class="estado-retornado">Retornado</span></div>
+                                </div>
+                                <div class="detalle-item">
+                                    <div class="detalle-label">Usuario Asignó:</div>
+                                    <div class="detalle-valor">Steven</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="detalle-seccion" style="margin-top: 10px;">
+                    <h4>📝 Observaciones</h4>
+                    <p style="margin: 5px 0; font-size: 11px; line-height: 1.4;">aaaaaa | RETORNO </p>
+                </div></div></div>
+        <div class="footer">
+            <p>Documento generado automáticamente por el Sistema de Gestión de Inventario TI - 10/10/2025 18:37:23 | 
+            Total de registros: 4 | Tipo: Detallado</p>
+        </div>
+    </body>
+    </html>
+        </body>
+        </html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Reporte de Historial de Asignaciones</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                .download-instructions { 
+                    background: #f0f8ff; 
+                    border: 1px solid #007bff; 
+                    padding: 15px; 
+                    margin: 20px 0; 
+                    border-radius: 5px; 
+                }
+                @media print { .download-instructions { display: none; } }
+                @page { 
+                    margin: 0.5in; 
+                    size: A4;
+                    @top-left { content: ""; }
+                    @top-center { content: ""; }
+                    @top-right { content: ""; }
+                    @bottom-left { content: ""; }
+                    @bottom-center { content: ""; }
+                    @bottom-right { content: ""; }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="download-instructions">
+                <h3>📥 Para descargar como PDF:</h3>
+                <ol>
+                    <li>Presiona <strong>Ctrl + P</strong> (o Cmd + P en Mac)</li>
+                    <li>Selecciona <strong>"Guardar como PDF"</strong> como destino</li>
+                    <li><strong>IMPORTANTE:</strong> En "Más configuraciones", desactiva <strong>"Encabezados y pies de página"</strong></li>
+                    <li>Haz clic en <strong>"Guardar"</strong></li>
+                </ol>
+                <p><small>💡 Sugerencia: El nombre recomendado es "Historial_Asignaciones_10-10-2025.pdf"</small></p>
+            </div>
+            <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Reporte de Historial de Asignaciones</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 15px; color: #333; line-height: 1.3; font-size: 14px; }
+            .header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid #007bff; padding-bottom: 18px; }
+            .header h1 { margin: 0; color: #007bff; font-size: 18px; }
+            .header h2 { margin: 5px 0; color: #666; font-size: 16px; }
+            .info-section { margin-bottom: 20px; }
+            .info-section h3 { background-color: #f8f9fa; padding: 8px; margin: 0 0 10px 0; border-left: 4px solid #007bff; font-size: 14px; }
+            .estadisticas-grid { display: table; width: 100%; margin-bottom: 20px; }
+            .estadistica-item { display: table-cell; text-align: center; padding: 10px; border: 1px solid #ddd; }
+            .estadistica-numero { font-size: 24px; font-weight: bold; color: #007bff; }
+            .estadistica-label { font-size: 12px; color: #666; }
+            .filtros-aplicados { background-color: #f9f9f9; padding: 10px; margin-bottom: 20px; border-radius: 5px; }
+            .filtros-aplicados h4 { margin: 0 0 10px 0; font-size: 14px; }
+            .filtro-item { display: inline-block; margin: 5px 10px 5px 0; font-size: 12px; }
+            .tabla-datos { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 11px; }
+            .tabla-datos th { background-color: #007bff; color: white; padding: 8px 4px; text-align: left; font-size: 10px; }
+            .tabla-datos td { padding: 6px 4px; border-bottom: 1px solid #ddd; font-size: 10px; }
+            .tabla-datos tr:nth-child(even) { background-color: #f9f9f9; }
+            .estado-activo { color: #28a745; font-weight: bold; }
+            .estado-retornado { color: #6c757d; }
+            .footer { margin-top: 20px; text-align: center; font-size: 10px; color: #666; border-top: 1px solid #ddd; padding-top: 10px; }
+            
+            @media print {
+                body { margin: 10px; font-size: 12px; }
+                .header h1 { font-size: 16px; }
+                .header h2 { font-size: 14px; }
+                .tabla-datos { font-size: 9px; }
+                .tabla-datos th { font-size: 8px; padding: 6px 3px; }
+                .tabla-datos td { font-size: 9px; padding: 4px 3px; }
+                .estadistica-numero { font-size: 20px; }
+                @page { margin: 0.3in; size: A4; }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>REPORTE DE HISTORIAL DE ASIGNACIONES</h1>
+            <h2>Sistema de Gestión de Inventario TI</h2><p><strong>Fecha de generación:</strong> 10/10/2025 16:10:46</p><p><strong>Generado por:</strong> admin</p><p><strong>Tipo de reporte:</strong> Resumido</p>
+        </div>
+        <div class="filtros-aplicados">
+            <h4>🔍 Filtros Aplicados:</h4><span class="filtro-item"><strong>Nombre Activo:</strong> PRUEBAPC</span></div>
+        <div class="info-section">
+            <h3>📋 DETALLE DE ASIGNACIONES (3 registros)</h3>
+            <table class="tabla-datos">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Activo</th>
+                        <th>Persona Asignada</th>
+                        <th>Fecha Asignación</th>
+                        <th>Fecha Retorno</th>
+                        <th>Duración</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2007</td>
+                        <td>PC - PRUEBAPC (PRUEBAPC)</td>
+                        <td>Juan Arias</td>
+                        <td>10/10/2025</td>
+                        <td>10/10/2025</td>
+                        <td>0 días</td>
+                        <td><span class="estado-retornado">Retornado</span></td>
+                    </tr>
+                    <tr>
+                        <td>2008</td>
+                        <td>PC - PRUEBAPC (PRUEBAPC)</td>
+                        <td>Niccol Chavez</td>
+                        <td>10/10/2025</td>
+                        <td>-</td>
+                        <td>0 días</td>
+                        <td><span class="estado-activo">Activo</span></td>
+                    </tr>
+                    <tr>
+                        <td>1008</td>
+                        <td>PC - PRUEBAPC (PRUEBAPC)</td>
+                        <td>Fernando Espa</td>
+                        <td>07/10/2025</td>
+                        <td>10/10/2025</td>
+                        <td>3 días</td>
+                        <td><span class="estado-retornado">Retornado</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer">
+            <p>Documento generado automáticamente por el Sistema de Gestión de Inventario TI - 10/10/2025 16:10:46 | 
+            Total de registros: 3 | Tipo: Resumido</p>
+        </div>
+    </body>
+    </html>
+        </body>
+        </html>
