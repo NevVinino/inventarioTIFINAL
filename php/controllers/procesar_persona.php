@@ -46,8 +46,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         header("Location: ../views/crud_persona.php?success=1");
         exit;
     } else {
-        echo "Error en la operación:<br>";
-        print_r(sqlsrv_errors(), true);
+        // Capturar el error
+        $errors = sqlsrv_errors();
+        $errorMessage = '';
+        
+        // Verificar si es un error de clave foránea (constraint)
+        if ($errors) {
+            foreach ($errors as $error) {
+                // Código de error de SQL Server para violación de clave foránea
+                if ($error['code'] == 547 || strpos($error['message'], 'REFERENCE') !== false || 
+                    strpos($error['message'], 'conflicted') !== false) {
+                    $errorMessage = 'No se puede eliminar debido a que se encuentra en uso';
+                    break;
+                } else {
+                    $errorMessage = 'Error en la operación';
+                }
+            }
+        }
+        
+        // Redirigir con mensaje de error
+        header("Location: ../views/crud_persona.php?error=" . urlencode($errorMessage));
+        exit;
     }
 }
 ?>

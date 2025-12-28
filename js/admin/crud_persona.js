@@ -4,6 +4,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const spanClose = document.querySelector(".close");
     const form = document.getElementById("formPersona");
 
+    // Verificar si hay un mensaje de error en la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorMsg = urlParams.get('error');
+    if (errorMsg) {
+        alert(errorMsg);
+        // Limpiar el parámetro de la URL sin recargar la página
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     // === Lógica para habilitar/deshabilitar "Jefe Inmediato" según tipo de persona ===
     const tipoSelect = document.getElementById("id_tipo_persona"); // Changed from id_tipo
     const jefeSelect = document.getElementById("jefe_inmediato");
