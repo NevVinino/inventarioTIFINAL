@@ -171,10 +171,6 @@
                     <span class="icon">👉</span>
                     <span>Asignaciones Activos</span>
                 </a>
-                <a href="crud_asignacionPeriferico.php" class="nav-item">
-                    <span class="icon">🖱</span>
-                    <span>Asignaciones Periféricos</span>
-                </a>
             </div>
         </div>
 
