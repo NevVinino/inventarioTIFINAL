@@ -39,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['auth_usuario']) && is
             if (strtolower($row_auth['vestado_usuario']) === 'habilitado') {
                 // Verificar password usando el mismo método que login.php
                 if (password_verify($auth_password, $row_auth['password'])) {
-                    // Verificar que sea administrador (usando 'admin' como en login.php)
-                    if ($row_auth['rol'] === 'admin') {
+                    // Verificar que sea administrador o usuario autorizado
+                    if ($row_auth['rol'] === 'admin' || $row_auth['rol'] === 'user') {
                         $mostrar_completo = true;
                         // Establecer datos de sesión temporales para usar en el resto de la página
                         $admin_data = [
@@ -48,9 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['auth_usuario']) && is
                             'username' => $row_auth['username'],
                             'rol' => $row_auth['rol']
                         ];
-                        error_log("Acceso autorizado para administrador: " . $row_auth['username']);
+                        error_log("Acceso autorizado para usuario: " . $row_auth['username'] . " con rol: " . $row_auth['rol']);
                     } else {
-                        $mensaje_error = "Solo los administradores pueden acceder a la información completa. Su rol actual es: " . $row_auth['rol'];
+                        $mensaje_error = "Solo los usuarios autorizados (admin o user) pueden acceder a la información completa. Su rol actual es: " . $row_auth['rol'];
                         error_log("Usuario con rol insuficiente: " . $row_auth['rol']);
                     }
                 } else {
@@ -758,7 +758,7 @@ function calcularAntiguedadLegible($dias) {
             <div class="usuario-info">
                 <h1>Información del Activo informático
                     <?php if ($mostrar_completo): ?>
-                        <span class="rol">Administrador: <?= htmlspecialchars($admin_data['username']) ?></span>
+                        <span class="rol"><?= htmlspecialchars(ucfirst($admin_data['rol'])) ?>: <?= htmlspecialchars($admin_data['username']) ?></span>
                     <?php else: ?>
                         <span class="rol">Vista Pública</span>
                     <?php endif; ?>
@@ -796,12 +796,12 @@ function calcularAntiguedadLegible($dias) {
                 <!-- Formulario de autenticación -->
                 <div class="acceso-restringido">
                     <h3>⚠️ Información Detallada Restringida</h3>
-                    <p>Para ver la información completa del activo, necesita autenticarse como administrador.</p>
+                    <p>Para ver la información completa del activo, necesita autenticarse como usuario autorizado (Admin o User).</p>
                 </div>
 
                 <div class="auth-container">
-                    <h3>Acceso de Administrador</h3>
-                    <p>Ingrese sus credenciales de administrador para ver toda la información:</p>
+                    <h3>Acceso de Usuario Autorizado</h3>
+                    <p>Ingrese sus credenciales para ver toda la información:</p>
                     
                     <?php if ($mensaje_error): ?>
                         <div class="error-message">
@@ -813,7 +813,7 @@ function calcularAntiguedadLegible($dias) {
                         <div>
                             <label for="auth_usuario">Usuario:</label>
                             <input type="text" id="auth_usuario" name="auth_usuario" required 
-                                   placeholder="Ingrese su usuario de administrador"
+                                   placeholder="Ingrese su usuario"
                                    value="<?= htmlspecialchars($_POST['auth_usuario'] ?? '') ?>">
                         </div>
                         <div>
@@ -1130,11 +1130,11 @@ function calcularAntiguedadLegible($dias) {
                     
                     <div style="text-align: center; margin-top: 30px; padding: 20px; background: #d4edda; border: 1px solid #c3e6cb; border-radius: 8px;">
                         <h3>✅ Acceso Autorizado</h3>
-                        <p>Información completa mostrada para el administrador: <strong><?= htmlspecialchars($admin_data['username']) ?></strong></p>
+                        <p>Información completa mostrada para: <strong><?= htmlspecialchars($admin_data['username']) ?></strong> (Rol: <strong><?= htmlspecialchars(ucfirst($admin_data['rol'])) ?></strong>)</p>
                         <form method="GET" style="display: inline;">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($id_activo) ?>">
                             <button type="submit" style="background: #6c757d; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
-                                🔒 Cerrar Sesión de Administrador
+                                🔒 Cerrar Sesión
                             </button>
                         </form>
                     </div>
