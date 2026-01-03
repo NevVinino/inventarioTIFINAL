@@ -466,14 +466,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die("❌ Error: " . $error);
         }
 
-        // Validar que el número de serie no exista
+        // Validaciones de unicidad (serial, MAC, IP) acumuladas en un solo mensaje
+        $errores_unicidad = [];
+
+        // Serial
         $sql_check_serial = "SELECT COUNT(*) as count FROM servidor WHERE numeroSerial = ?";
         $stmt_check_serial = sqlsrv_query($conn, $sql_check_serial, [$numberSerial]);
         
         if ($stmt_check_serial === false) {
+            $err = 'Error al verificar número de serie en la base de datos';
             if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
                 header('Content-Type: application/json');
-                echo json_encode(['success' => false, 'error' => 'Error al verificar número de serie en la base de datos']);
+                echo json_encode(['success' => false, 'error' => $err]);
                 exit;
             }
             die("❌ Error al verificar número de serie: " . print_r(sqlsrv_errors(), true));
@@ -481,12 +485,59 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $row_serial = sqlsrv_fetch_array($stmt_check_serial, SQLSRV_FETCH_ASSOC);
         if ($row_serial['count'] > 0) {
+            $errores_unicidad[] = "❌ Error: El número de serie '$numberSerial' ya existe en la base de datos. Por favor, ingrese un número de serie único.";
+        }
+
+        // MAC
+        if (!empty($mac)) {
+            $sql_check_mac = "SELECT COUNT(*) as count FROM servidor WHERE mac = ?";
+            $stmt_check_mac = sqlsrv_query($conn, $sql_check_mac, [$mac]);
+
+            if ($stmt_check_mac === false) {
+                $err = 'Error al verificar dirección MAC en la base de datos';
+                if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => false, 'error' => $err]);
+                    exit;
+                }
+                die("❌ Error al verificar dirección MAC: " . print_r(sqlsrv_errors(), true));
+            }
+
+            $row_mac = sqlsrv_fetch_array($stmt_check_mac, SQLSRV_FETCH_ASSOC);
+            if ($row_mac['count'] > 0) {
+                $errores_unicidad[] = "❌ Error: La dirección MAC '$mac' ya existe en la base de datos. Por favor, ingrese una dirección MAC única.";
+            }
+        }
+
+        // IP
+        if (!empty($numeroIP)) {
+            $sql_check_ip = "SELECT COUNT(*) as count FROM servidor WHERE numeroIP = ?";
+            $stmt_check_ip = sqlsrv_query($conn, $sql_check_ip, [$numeroIP]);
+
+            if ($stmt_check_ip === false) {
+                $err = 'Error al verificar dirección IP en la base de datos';
+                if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => false, 'error' => $err]);
+                    exit;
+                }
+                die("❌ Error al verificar dirección IP: " . print_r(sqlsrv_errors(), true));
+            }
+
+            $row_ip = sqlsrv_fetch_array($stmt_check_ip, SQLSRV_FETCH_ASSOC);
+            if ($row_ip['count'] > 0) {
+                $errores_unicidad[] = "❌ Error: La dirección IP '$numeroIP' ya existe en la base de datos. Por favor, ingrese una dirección IP única.";
+            }
+        }
+
+        if (!empty($errores_unicidad)) {
+            $mensaje_unico = implode("\n", $errores_unicidad);
             if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
                 header('Content-Type: application/json');
-                echo json_encode(['success' => false, 'error' => "El número de serie '$numberSerial' ya existe en la base de datos. Por favor, ingrese un número de serie único."]);
+                echo json_encode(['success' => false, 'error' => $mensaje_unico]);
                 exit;
             }
-            die("❌ Error: El número de serie '$numberSerial' ya existe en la base de datos. Por favor, ingrese un número de serie único.");
+            die($mensaje_unico);
         }
         
         // CORREGIDO: Validar campos obligatorios para la base de datos
@@ -690,7 +741,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die("Error: " . $e->getMessage());
         }
     } elseif ($accion === "editar" && !empty($id_activo)) {
-        // Validar que el número de serie no exista en otro servidor
+        // Validaciones de unicidad acumuladas para edición (serial, MAC, IP)
+        $errores_unicidad = [];
+
+        // Serial
         $sql_check_serial = "SELECT COUNT(*) as count FROM servidor s 
                             INNER JOIN activo a ON s.id_servidor = a.id_servidor 
                             WHERE s.numeroSerial = ? AND a.id_activo != ?";
@@ -707,12 +761,61 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $row_serial = sqlsrv_fetch_array($stmt_check_serial, SQLSRV_FETCH_ASSOC);
         if ($row_serial['count'] > 0) {
+            $errores_unicidad[] = "❌ Error: El número de serie '$numberSerial' ya existe en otro servidor. Por favor, ingrese un número de serie único.";
+        }
+
+        // MAC
+        if (!empty($mac)) {
+            $sql_check_mac = "SELECT COUNT(*) as count FROM servidor s 
+                            INNER JOIN activo a ON s.id_servidor = a.id_servidor 
+                            WHERE s.mac = ? AND a.id_activo != ?";
+            $stmt_check_mac = sqlsrv_query($conn, $sql_check_mac, [$mac, $id_activo]);
+
+            if ($stmt_check_mac === false) {
+                if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => false, 'error' => 'Error al verificar dirección MAC en la base de datos']);
+                    exit;
+                }
+                die("❌ Error al verificar dirección MAC: " . print_r(sqlsrv_errors(), true));
+            }
+
+            $row_mac = sqlsrv_fetch_array($stmt_check_mac, SQLSRV_FETCH_ASSOC);
+            if ($row_mac['count'] > 0) {
+                $errores_unicidad[] = "❌ Error: La dirección MAC '$mac' ya existe en la base de datos. Por favor, ingrese una dirección MAC única.";
+            }
+        }
+
+        // IP
+        if (!empty($numeroIP)) {
+            $sql_check_ip = "SELECT COUNT(*) as count FROM servidor s 
+                            INNER JOIN activo a ON s.id_servidor = a.id_servidor 
+                            WHERE s.numeroIP = ? AND a.id_activo != ?";
+            $stmt_check_ip = sqlsrv_query($conn, $sql_check_ip, [$numeroIP, $id_activo]);
+
+            if ($stmt_check_ip === false) {
+                if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => false, 'error' => 'Error al verificar dirección IP en la base de datos']);
+                    exit;
+                }
+                die("❌ Error al verificar dirección IP: " . print_r(sqlsrv_errors(), true));
+            }
+
+            $row_ip = sqlsrv_fetch_array($stmt_check_ip, SQLSRV_FETCH_ASSOC);
+            if ($row_ip['count'] > 0) {
+                $errores_unicidad[] = "❌ Error: La dirección IP '$numeroIP' ya existe en la base de datos. Por favor, ingrese una dirección IP única.";
+            }
+        }
+
+        if (!empty($errores_unicidad)) {
+            $mensaje_unico = implode("\n", $errores_unicidad);
             if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
                 header('Content-Type: application/json');
-                echo json_encode(['success' => false, 'error' => "El número de serie '$numberSerial' ya existe en otro servidor. Por favor, ingrese un número de serie único."]);
+                echo json_encode(['success' => false, 'error' => $mensaje_unico]);
                 exit;
             }
-            die("❌ Error: El número de serie '$numberSerial' ya existe en otro servidor. Por favor, ingrese un número de serie único.");
+            die($mensaje_unico);
         }
         
         // Obtener configuración de slots para edición de Servidor

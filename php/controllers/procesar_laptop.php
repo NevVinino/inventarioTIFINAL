@@ -634,27 +634,79 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die("❌ Error: " . $error);
         }
 
+        // Validaciones de unicidad acumuladas para mostrar un único mensaje
+        $errores_unicidad = [];
+
         // Validar que el número de serie no exista
         $sql_check_serial = "SELECT COUNT(*) as count FROM laptop WHERE numeroSerial = ?";
         $stmt_check_serial = sqlsrv_query($conn, $sql_check_serial, [$numberSerial]);
-        
+
         if ($stmt_check_serial === false) {
+            $error_resp = 'Error al verificar número de serie en la base de datos';
             if ($isAjax) {
                 header('Content-Type: application/json');
-                echo json_encode(['success' => false, 'error' => 'Error al verificar número de serie en la base de datos']);
+                echo json_encode(['success' => false, 'error' => $error_resp]);
                 exit;
             }
             die("❌ Error al verificar número de serie: " . print_r(sqlsrv_errors(), true));
         }
-        
+
         $row_serial = sqlsrv_fetch_array($stmt_check_serial, SQLSRV_FETCH_ASSOC);
         if ($row_serial['count'] > 0) {
+            $errores_unicidad[] = "❌ Error: El número de serie '$numberSerial' ya existe en la base de datos. Por favor, ingrese un número de serie único.";
+        }
+
+        // Validar que la MAC no exista
+        if (!empty($mac)) {
+            $sql_check_mac = "SELECT COUNT(*) as count FROM laptop WHERE mac = ?";
+            $stmt_check_mac = sqlsrv_query($conn, $sql_check_mac, [$mac]);
+
+            if ($stmt_check_mac === false) {
+                $error_resp = 'Error al verificar dirección MAC en la base de datos';
+                if ($isAjax) {
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => false, 'error' => $error_resp]);
+                    exit;
+                }
+                die("❌ Error al verificar dirección MAC: " . print_r(sqlsrv_errors(), true));
+            }
+
+            $row_mac = sqlsrv_fetch_array($stmt_check_mac, SQLSRV_FETCH_ASSOC);
+            if ($row_mac['count'] > 0) {
+                $errores_unicidad[] = "❌ Error: La dirección MAC '$mac' ya existe en la base de datos. Por favor, ingrese una dirección MAC única.";
+            }
+        }
+
+        // Validar que la IP no exista
+        if (!empty($numeroIP)) {
+            $sql_check_ip = "SELECT COUNT(*) as count FROM laptop WHERE numeroIP = ?";
+            $stmt_check_ip = sqlsrv_query($conn, $sql_check_ip, [$numeroIP]);
+
+            if ($stmt_check_ip === false) {
+                $error_resp = 'Error al verificar dirección IP en la base de datos';
+                if ($isAjax) {
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => false, 'error' => $error_resp]);
+                    exit;
+                }
+                die("❌ Error al verificar dirección IP: " . print_r(sqlsrv_errors(), true));
+            }
+
+            $row_ip = sqlsrv_fetch_array($stmt_check_ip, SQLSRV_FETCH_ASSOC);
+            if ($row_ip['count'] > 0) {
+                $errores_unicidad[] = "❌ Error: La dirección IP '$numeroIP' ya existe en la base de datos. Por favor, ingrese una dirección IP única.";
+            }
+        }
+
+        // Si hay cualquier error de unicidad, responder con todos en un solo mensaje
+        if (!empty($errores_unicidad)) {
+            $mensaje_unico = implode("\n", $errores_unicidad);
             if ($isAjax) {
                 header('Content-Type: application/json');
-                echo json_encode(['success' => false, 'error' => "El número de serie '$numberSerial' ya existe en la base de datos. Por favor, ingrese un número de serie único."]);
+                echo json_encode(['success' => false, 'error' => $mensaje_unico]);
                 exit;
             }
-            die("❌ Error: El número de serie '$numberSerial' ya existe en la base de datos. Por favor, ingrese un número de serie único.");
+            die($mensaje_unico);
         }
         
         // CORREGIDO: Validar campos obligatorios para la base de datos
@@ -887,14 +939,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } elseif ($accion === "editar" && !empty($id_activo)) {
         logDetallado("=== INICIANDO EDICIÓN DE LAPTOP ===", ['id_activo' => $id_activo]);
         
-        // Validar que el número de serie no exista en otro laptop
+        // Validaciones de unicidad acumuladas para edición (un solo mensaje con todos los errores)
+        $errores_unicidad = [];
+
+        // Serial
         $sql_check_serial = "SELECT COUNT(*) as count FROM laptop l 
                             INNER JOIN activo a ON l.id_laptop = a.id_laptop 
                             WHERE l.numeroSerial = ? AND a.id_activo != ?";
         $stmt_check_serial = sqlsrv_query($conn, $sql_check_serial, [$numberSerial, $id_activo]);
-        
+
         if ($stmt_check_serial === false) {
-            // Verificar si es una petición AJAX
             if ($isAjax) {
                 header('Content-Type: application/json');
                 echo json_encode(['success' => false, 'error' => 'Error al verificar número de serie en la base de datos']);
@@ -902,16 +956,65 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
             die("❌ Error al verificar número de serie: " . print_r(sqlsrv_errors(), true));
         }
-        
+
         $row_serial = sqlsrv_fetch_array($stmt_check_serial, SQLSRV_FETCH_ASSOC);
         if ($row_serial['count'] > 0) {
-            // Verificar si es una petición AJAX
+            $errores_unicidad[] = "❌ Error: El número de serie '$numberSerial' ya existe en otro laptop. Por favor, ingrese un número de serie único.";
+        }
+
+        // MAC
+        if (!empty($mac)) {
+            $sql_check_mac = "SELECT COUNT(*) as count FROM laptop l 
+                            INNER JOIN activo a ON l.id_laptop = a.id_laptop 
+                            WHERE l.mac = ? AND a.id_activo != ?";
+            $stmt_check_mac = sqlsrv_query($conn, $sql_check_mac, [$mac, $id_activo]);
+
+            if ($stmt_check_mac === false) {
+                if ($isAjax) {
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => false, 'error' => 'Error al verificar dirección MAC en la base de datos']);
+                    exit;
+                }
+                die("❌ Error al verificar dirección MAC: " . print_r(sqlsrv_errors(), true));
+            }
+
+            $row_mac = sqlsrv_fetch_array($stmt_check_mac, SQLSRV_FETCH_ASSOC);
+            if ($row_mac['count'] > 0) {
+                $errores_unicidad[] = "❌ Error: La dirección MAC '$mac' ya existe en la base de datos. Por favor, ingrese una dirección MAC única.";
+            }
+        }
+
+        // IP
+        if (!empty($numeroIP)) {
+            $sql_check_ip = "SELECT COUNT(*) as count FROM laptop l 
+                            INNER JOIN activo a ON l.id_laptop = a.id_laptop 
+                            WHERE l.numeroIP = ? AND a.id_activo != ?";
+            $stmt_check_ip = sqlsrv_query($conn, $sql_check_ip, [$numeroIP, $id_activo]);
+
+            if ($stmt_check_ip === false) {
+                if ($isAjax) {
+                    header('Content-Type: application/json');
+                    echo json_encode(['success' => false, 'error' => 'Error al verificar dirección IP en la base de datos']);
+                    exit;
+                }
+                die("❌ Error al verificar dirección IP: " . print_r(sqlsrv_errors(), true));
+            }
+
+            $row_ip = sqlsrv_fetch_array($stmt_check_ip, SQLSRV_FETCH_ASSOC);
+            if ($row_ip['count'] > 0) {
+                $errores_unicidad[] = "❌ Error: La dirección IP '$numeroIP' ya existe en la base de datos. Por favor, ingrese una dirección IP única.";
+            }
+        }
+
+        // Responder con un solo mensaje si hay errores de unicidad
+        if (!empty($errores_unicidad)) {
+            $mensaje_unico = implode("\n", $errores_unicidad);
             if ($isAjax) {
                 header('Content-Type: application/json');
-                echo json_encode(['success' => false, 'error' => "El número de serie '$numberSerial' ya existe en otro laptop. Por favor, ingrese un número de serie único."]);
+                echo json_encode(['success' => false, 'error' => $mensaje_unico]);
                 exit;
             }
-            die("❌ Error: El número de serie '$numberSerial' ya existe en otro laptop. Por favor, ingrese un número de serie único.");
+            die($mensaje_unico);
         }
         
         // NUEVO: Obtener configuración de slots para edición

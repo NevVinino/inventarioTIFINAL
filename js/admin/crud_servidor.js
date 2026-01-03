@@ -1275,7 +1275,10 @@ document.addEventListener("DOMContentLoaded", function () {
             
             fetch('../controllers/procesar_servidor.php', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
             })
             .then(response => response.text())
             .then(text => {
@@ -1288,7 +1291,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         window.location.href = '../views/crud_servidor.php?success=1';
                         return;
                     } else {
-                        alert('❌ Error: ' + jsonResponse.error);
+                        const errorText = jsonResponse.error || 'Error desconocido';
+                        alert(errorText);
                         return;
                     }
                 } catch (parseError) {
@@ -1296,14 +1300,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 
                 // Manejo existente para respuestas de texto
-                if (text.includes('❌ Error:')) {
-                    const errorMatch = text.match(/❌ Error: (.+?)(?:\.|$)/);
-                    const errorMessage = errorMatch ? errorMatch[1] : 'Error desconocido';
-                    alert('❌ Error: ' + errorMessage);
-                } else if (text.includes('Error:')) {
-                    const errorMatch = text.match(/Error: (.+?)(?:\.|$)/);
-                    const errorMessage = errorMatch ? errorMatch[1] : 'Error desconocido';
-                    alert('Error: ' + errorMessage);
+                const textoLimpio = text.trim();
+                if (textoLimpio.toLowerCase().includes('error')) {
+                    alert(textoLimpio);
+                    return;
                 } else {
                     // NUEVO: Mostrar alerta de éxito para operaciones exitosas
                     const accion = document.getElementById("accion").value;

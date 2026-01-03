@@ -1378,22 +1378,23 @@ document.addEventListener("DOMContentLoaded", function () {
                         modal.style.display = "none";
                         window.location.href = '../views/crud_laptop.php?success=1';
                     } else {
-                        // NUEVO: Manejo específico y consistente para errores de número de serie duplicado
-                        if (data.error && data.error.includes('número de serie')) {
-                            alert('❌ Error: ' + data.error);
-                        } else {
-                            let errorMsg = '❌ Error: ' + (data.error || 'Error desconocido');
-                            if (data.debug) {
-                                errorMsg += `\n\nInformación de depuración: ${data.debug}`;
-                            }
-                            if (data.slots_received) {
-                                errorMsg += `\n\nSlots recibidos por el servidor: ${JSON.stringify(data.slots_received)}`;
-                            }
-                            if (data.trace) {
-                                console.error("Stack trace del servidor:", data.trace);
-                            }
-                            mostrarErrorDetallado("Error del servidor", data.error || 'Error desconocido', data);
+                        // Mostrar una sola alerta con todos los errores de unicidad (serial, MAC, IP)
+                        if (data.error && (data.error.includes('número de serie') || data.error.includes('dirección MAC') || data.error.includes('dirección IP'))) {
+                            alert(data.error);
+                            return;
                         }
+
+                        let errorMsg = '❌ Error: ' + (data.error || 'Error desconocido');
+                        if (data.debug) {
+                            errorMsg += `\n\nInformación de depuración: ${data.debug}`;
+                        }
+                        if (data.slots_received) {
+                            errorMsg += `\n\nSlots recibidos por el servidor: ${JSON.stringify(data.slots_received)}`;
+                        }
+                        if (data.trace) {
+                            console.error("Stack trace del servidor:", data.trace);
+                        }
+                        mostrarErrorDetallado("Error del servidor", data.error || 'Error desconocido', data);
                     }
                 } catch (parseError) {
                     console.log("⚠️ La respuesta no es JSON válido, analizando como texto...");
@@ -1404,8 +1405,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         const errorMatch = text.match(/❌ Error: (.+?)(?:\.|<|$)/);
                         const errorMessage = errorMatch ? errorMatch[1] : 'Error desconocido';
                         
-                        // NUEVO: Manejo específico y consistente para número de serie duplicado en texto
-                        if (errorMessage.includes('número de serie')) {
+                        if (errorMessage.includes('número de serie') || errorMessage.includes('dirección MAC') || errorMessage.includes('dirección IP')) {
                             alert('❌ Error: ' + errorMessage);
                         } else {
                             mostrarErrorDetallado("Error del sistema", errorMessage, { responseText: text.substring(0, 200) });
@@ -1414,8 +1414,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         const errorMatch = text.match(/Error: (.+?)(?:\.|<|$)/);
                         const errorMessage = errorMatch ? errorMatch[1] : 'Error desconocido';
                         
-                        // NUEVO: Manejo específico y consistente para número de serie duplicado en texto
-                        if (errorMessage.includes('número de serie')) {
+                        if (errorMessage.includes('número de serie') || errorMessage.includes('dirección MAC') || errorMessage.includes('dirección IP')) {
                             alert('❌ Error: ' + errorMessage);
                         } else {
                             mostrarErrorDetallado("Error del sistema", errorMessage, { responseText: text.substring(0, 200) });
