@@ -29,8 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         header("Location: ../views/crud_localidad.php?success=1");
         exit;
     } else {
-        echo "Error en la operación:";
-        print_r(sqlsrv_errors());
+        $errors = sqlsrv_errors();
+        if (strpos($errors[0]['message'], 'REFERENCE constraint') !== false) {
+            header("Location: ../views/crud_localidad.php?error=No se puede eliminar esta localidad porque se encuentra en uso.");
+        } else {
+            header("Location: ../views/crud_localidad.php?error=Error al eliminar el registro.");
+        }
+        exit;
     }
 
 

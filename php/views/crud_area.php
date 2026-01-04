@@ -18,22 +18,6 @@ $areas = sqlsrv_query($conn, $sqlAreas);
         <meta charset="UTF-8">
         <title>Gestión de Áreas</title>
         <link rel="stylesheet" href="../../css/admin/admin_main.css">
-            <style>
-                .alerta-error {
-                    background-color: #f8d7da;
-                    color: #721c24;
-                    border: 1px solid #f5c6cb;
-                    padding: 12px 20px;
-                    margin: 20px auto;
-                    width: 80%;
-                    text-align: center;
-                    border-radius: 5px;
-                    font-weight: bold;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-                    transition: opacity 0.5s ease;
-                }
-
-            </style>
     </head>
 
     <body>
@@ -44,33 +28,6 @@ $areas = sqlsrv_query($conn, $sqlAreas);
         <?php include('includes/sidebar.php'); ?>
 
     
-
-        <!-- Alerta de errores -->
-        <?php if (isset($_GET['error'])): ?>
-            <div class="alerta-error" id="mensajeError">
-                <?php if ($_GET['error'] === 'area_en_uso'): ?>
-                    No se puede eliminar esta área porque está asignada a una o más personas.
-                <?php else: ?>
-                    Error al eliminar el registro.
-                <?php endif; ?>
-            </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    // Ocultar después de 5 segundos
-                    setTimeout(() => {
-                        const alerta = document.getElementById("mensajeError");
-                        if (alerta) alerta.style.display = "none";
-                    }, 10000);
-
-                    // Limpiar el parámetro ?error de la URL
-                    if (history.replaceState) {
-                        const url = new URL(window.location);
-                        url.searchParams.delete('error');
-                        window.history.replaceState({}, document.title, url.pathname + url.search);
-                    }
-                    });
-            </script>
-        <?php endif; ?>
 
         <main class="main-content" id="mainContent">
             <!-- Flecha -->

@@ -33,7 +33,12 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         header("Location: ../views/crud_proveedor.php?success=1");
         exit;
     } else {
-        echo "Error en la operación:<br>";
-        print_r(sqlsrv_errors());
+        $errors = sqlsrv_errors();
+        if (strpos($errors[0]['message'], 'REFERENCE constraint') !== false) {
+            header("Location: ../views/crud_proveedor.php?error=No se puede eliminar este proveedor porque está siendo usado en un cambio de hardware.");
+        } else {
+            header("Location: ../views/crud_proveedor.php?error=Error al eliminar el registro.");
+        }
+        exit;
     }
 }

@@ -22,33 +22,6 @@ $proveedores = sqlsrv_query($conn, $sqlProveedores);
         <!-- Incluir Sidebar -->
         <?php include('includes/sidebar.php'); ?>
 
-        <!-- Alerta de errores -->
-            <?php if (isset($_GET['error'])): ?>
-                <div class="alerta-error" id="mensajeError">
-                    <?php if ($_GET['error'] === 'area_en_uso'): ?>
-                        No se puede eliminar esta proveedor porque se esta usando en un cambio de hardware.
-                    <?php else: ?>
-                        Error al eliminar el registro.
-                    <?php endif; ?>
-                </div>
-                <script>
-                    document.addEventListener("DOMContentLoaded", function () {
-                        // Ocultar después de 5 segundos
-                        setTimeout(() => {
-                            const alerta = document.getElementById("mensajeError");
-                            if (alerta) alerta.style.display = "none";
-                        }, 10000);
-
-                        // Limpiar el parámetro ?error de la URL
-                        if (history.replaceState) {
-                            const url = new URL(window.location);
-                            url.searchParams.delete('error');
-                            window.history.replaceState({}, document.title, url.pathname + url.search);
-                        }
-                        });
-                </script>
-            <?php endif; ?>
-
         <main class="main-content" id="mainContent">
             <!-- Flecha -->
             <a href="vista_admin.php" class="back-button">
