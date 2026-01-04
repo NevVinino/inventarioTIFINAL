@@ -11,6 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Configurar funcionalidad de modales mejorada
     configurarModalMejorado();
     
+    // Configurar funcionalidad de búsqueda
+    configurarBuscador();
+    
     // Inicializar sistema básico
     if (typeof inicializarSistema === 'function') {
         inicializarSistema();
@@ -61,4 +64,25 @@ function configurarModalMejorado() {
     });
     
     console.log("✅ Funcionalidad de modales mejorada configurada");
+}
+
+// Función para configurar el buscador de la tabla
+function configurarBuscador() {
+    const buscador = document.getElementById("buscador");
+    const filas = document.querySelectorAll("#tablaReparaciones tbody tr");
+
+    if (!buscador) {
+        console.log("⚠️ No se encontró el campo de búsqueda");
+        return;
+    }
+
+    buscador.addEventListener("input", function () {
+        const valor = buscador.value.toLowerCase();
+        filas.forEach(function (fila) {
+            const texto = fila.textContent.toLowerCase();
+            fila.style.display = texto.includes(valor) ? "" : "none";
+        });
+    });
+    
+    console.log("✅ Funcionalidad de búsqueda configurada");
 }
