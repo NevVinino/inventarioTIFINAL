@@ -27,8 +27,13 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         header("Location: ../views/crud_ram_generico.php?success=1");
         exit;
     } else {
-        echo "Error en la operación:<br>";
-        print_r(sqlsrv_errors());
+        $errors = sqlsrv_errors();
+        if (strpos($errors[0]['message'], 'REFERENCE constraint') !== false) {
+            header("Location: ../views/crud_ram_generico.php?error=No se puede eliminar esta RAM genérica porque está siendo usada por un activo informático.");
+        } else {
+            header("Location: ../views/crud_ram_generico.php?error=Error al eliminar el registro.");
+        }
+        exit;
     }
 }
     

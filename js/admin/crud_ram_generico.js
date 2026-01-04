@@ -4,6 +4,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const spanClose = document.querySelector(".close");
     const form = document.getElementById("formRAM");
 
+    // Asegurar que el modal quede cerrado al cargar, evitando que el overlay oscurezca la vista
+    if (modal) modal.style.display = "none";
+
+    // Verificar si hay un mensaje de error en la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorMsg = urlParams.get('error');
+    if (errorMsg) {
+        alert(errorMsg);
+        if (modal) modal.style.display = "none"; // evitar overlay visible tras la alerta
+        // Limpiar el parámetro de la URL sin recargar la página
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     btnNuevo.addEventListener("click", function () {
         document.getElementById("modal-title").textContent = "Registrar RAM Genérica";
         document.getElementById("accion").value = "crear";
