@@ -31,7 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         header("Location: ../views/crud_procesador.php?success=1");
         exit;
     } else {
-        echo "Error en la operación:<br>";
-        print_r(sqlsrv_errors());
+        $errors = sqlsrv_errors();
+        if (strpos($errors[0]['message'], 'REFERENCE constraint') !== false) {
+            header("Location: ../views/crud_procesador.php?error=No se puede eliminar este procesador porque está siendo usado por uno o más activos informáticos.");
+        } else {
+            header("Location: ../views/crud_procesador.php?error=Error al eliminar el registro.");
+        }
+        exit;
     }
 }
