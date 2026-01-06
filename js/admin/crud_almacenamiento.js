@@ -9,6 +9,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("formAlmacenamiento");
     const marcaSelect = document.getElementById("id_marca");
 
+    // Asegurar que el modal quede cerrado al cargar, evitando que el overlay oscurezca la vista
+    if (modal) modal.style.display = "none";
+
+    // Verificar si hay un mensaje de error en la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorMsg = urlParams.get('error');
+    if (errorMsg) {
+        alert(errorMsg);
+        if (modal) modal.style.display = "none"; // evitar overlay visible tras la alerta
+        // Limpiar el parámetro de la URL sin recargar la página
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     // Verificar si los elementos existen
     if (!modal) console.error("❌ Modal no encontrado");
     if (!marcaSelect) console.error("❌ Select de marca no encontrado");
