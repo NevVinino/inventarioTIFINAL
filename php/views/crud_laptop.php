@@ -218,7 +218,7 @@ $activos = $filas_temp;
         <div class="main-container">
             <div class="top-bar">
                 <h2>Crear nueva Laptop</h2>
-                <input type="text" id="buscador" placeholder="Buscar activo">
+                <input type="text" id="buscador" placeholder="Buscar laptop">
                 <button id="btnNuevo">+ NUEVO</button>
             </div>
 
