@@ -338,6 +338,7 @@ $activos = $filas_temp;
                                 data-ram="<?= htmlspecialchars($a['slots_ram_texto'] ?? 'No especificado') ?>"
                                 data-almacenamiento="<?= htmlspecialchars($a['slots_almacenamiento_texto'] ?? 'No especificado') ?>"
                                 data-tarjeta_video="<?= htmlspecialchars($a['slots_tarjeta_video_texto'] ?? 'No especificado') ?>"
+                                data-qr-link="<?= htmlspecialchars(BASE_URL . '/php/views/user/detalle_activo_publico.php?id=' . ($a['id_activo'] ?? '')) ?>"
                                 <?php if(isset($a['ruta_qr']) && !empty($a['ruta_qr'])): ?>
                                 data-qr="<?= htmlspecialchars($a['ruta_qr']) ?>"
                                 <?php endif; ?>

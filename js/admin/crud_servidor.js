@@ -738,16 +738,47 @@ document.addEventListener("DOMContentLoaded", function () {
                                 valor = 'Usuario no identificado';
                             }
                             break;
-                        case 'qr':
+                        case 'qr': {
                             const qrPath = this.dataset[attr];
-                            element.innerHTML = `<img src="../../${qrPath}" alt="QR Code" class="qr-image">`;
-                            //direccion de almacenamiento de la carpeta qr
-                            if (downloadBtn) {
+                            const qrLink = (() => {
+                                const linkAttr = this.dataset.qrLink;
+                                if (linkAttr && linkAttr.trim() !== '') return linkAttr;
+                                const idActivo = this.dataset.id;
+                                if (!idActivo) return null;
+                                const host = window.location.host || 'localhost:8000';
+                                const protocol = window.location.protocol === 'http:' || window.location.protocol === 'https:' ? window.location.protocol : 'http:';
+                                const base = host.includes('localhost') || host.includes('127.0.0.1') ? 'http://localhost:8000' : `${protocol}//${host}`;
+                                return `${base}/php/views/user/detalle_activo_publico.php?id=${idActivo}`;
+                            })();
+
+                            if (qrPath) {
+                                const img = document.createElement('img');
+                                img.src = `../../${qrPath}`;
+                                img.alt = 'QR Code';
+                                img.className = 'qr-image';
+
+                                element.innerHTML = '';
+                                if (qrLink) {
+                                    const anchor = document.createElement('a');
+                                    anchor.href = qrLink;
+                                    anchor.target = '_blank';
+                                    anchor.rel = 'noopener noreferrer';
+                                    anchor.appendChild(img);
+                                    element.appendChild(anchor);
+                                } else {
+                                    element.appendChild(img);
+                                }
+                            } else {
+                                element.textContent = 'No especificado';
+                            }
+
+                            if (downloadBtn && qrPath) {
                                 downloadBtn.style.display = 'block';
                                 downloadBtn.href = "../../" + qrPath;
                                 downloadBtn.download = qrPath.split('/').pop();
                             }
                             continue; // Skip setting textContent for QR
+                        }
                         case 'cpu':
                         case 'ram':
                         case 'almacenamiento':
