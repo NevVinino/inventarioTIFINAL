@@ -580,7 +580,7 @@ $activos = $filas_temp;
 <div id="modalVisualizacion" class="modal">
     <div class="modal-content detalles">
         <span class="close close-view">&times;</span>
-        <h3>Detalles del Activo - Servidor</h3>
+        <h3>Detalles del Activo informático - Servidor</h3>
         
         <div class="detalles-grid">
             <!-- Información básica del equipo -->
