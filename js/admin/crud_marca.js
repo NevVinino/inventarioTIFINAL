@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll(".btn-editar").forEach(function (btn) {
         btn.addEventListener("click", function () {
-            document.getElementById("modal-title").textContent = "Editar Marca";
+            document.getElementById("modal-title").textContent = "Editar Registro de Marca por Tipo";
             document.getElementById("accion").value = "editar";
 
             document.getElementById("id_marca").value = btn.dataset.id;

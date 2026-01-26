@@ -232,7 +232,7 @@ while ($fila = sqlsrv_fetch_array($historial, SQLSRV_FETCH_ASSOC)) {
 <div id="modalIngreso" class="modal" style="display:none;">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h3>Ingresar Activo al Almacén</h3>
+        <h3>Ingresar Activo informático al Almacén</h3>
         
         <form id="formIngreso" method="POST" action="../controllers/procesar_historial_almacen.php">
             <input type="hidden" name="accion" value="ingresar_activo">
