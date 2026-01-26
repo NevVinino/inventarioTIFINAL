@@ -83,7 +83,7 @@ $tiposMarca = sqlsrv_query($conn, $sqlTiposMarca);
                 <div id="modalMarca" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
-                        <h3 id="modal-title">Nueva Marca</h3>
+                        <h3 id="modal-title"></h3>
                         <form id="formMarca" method="POST" action="../controllers/procesar_marca.php">
                             <input type="hidden" name="accion" id="accion" value="crear">
                             <input type="hidden" name="id_marca" id="id_marca">
@@ -91,7 +91,7 @@ $tiposMarca = sqlsrv_query($conn, $sqlTiposMarca);
                             <label for="nombre">Nombre:</label>
                             <input type="text" name="nombre" id="nombre" required>
                             
-                            <label for="id_tipo_marca">Tipo de Marca:</label>
+                            <label for="id_tipo_marca">Tipo de Componente:</label>
                             <select name="id_tipo_marca" id="id_tipo_marca" required>
                                 <option value="">Seleccione un tipo</option>
                                 <?php 

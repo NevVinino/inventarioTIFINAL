@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     btnNuevo.addEventListener("click", function () {
-        document.getElementById("modal-title").textContent = "Registrar Marca";
+        document.getElementById("modal-title").textContent = "Registrar Marca por Tipo";
         document.getElementById("accion").value = "crear";
         form.reset();
         modal.style.display = "block";
