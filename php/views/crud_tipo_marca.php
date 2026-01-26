@@ -56,7 +56,7 @@ $tiposMarca = sqlsrv_query($conn, $sqlTiposMarca);
                                             data-nombre="<?= htmlspecialchars($tm['nombre']) ?>">
                                             <img src="../../img/editar.png" alt="Editar">
                                         </button>
-                                        <form method="POST" action="../controllers/procesar_tipo_marca.php" style="display:inline;" onsubmit="return confirm('¿Eliminar este tipo de marca?');">
+                                        <form method="POST" action="../controllers/procesar_tipo_marca.php" style="display:inline;" onsubmit="return confirm('¿Eliminar este tipo de componente?');">
                                             <input type="hidden" name="accion" value="eliminar">
                                             <input type="hidden" name="id_tipo_marca" value="<?= $tm['id_tipo_marca'] ?>">
                                             <button type="submit" class="btn-icon btn-eliminar">
@@ -70,7 +70,7 @@ $tiposMarca = sqlsrv_query($conn, $sqlTiposMarca);
                     </tbody>
                 </table>
 
-                <!-- Modal para crear/editar tipo de marca -->
+                <!-- Modal para crear/editar tipo de componente -->
                 <div id="modalTipoMarca" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
