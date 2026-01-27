@@ -21,6 +21,12 @@ function mostrarFormCambioHardware() {
         if (form) {
             form.reset();
         }
+
+        // Establecer fecha por defecto a hoy si está disponible
+        const fechaInput = document.getElementById('fechaCambio');
+        if (fechaInput && !fechaInput.value) {
+            fechaInput.value = new Date().toISOString().split('T')[0];
+        }
         
         // Ocultar sección de componentes al inicio
         const seccionExistente = document.getElementById('seccionComponenteExistente');

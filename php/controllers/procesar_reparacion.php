@@ -426,6 +426,38 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         $tipo_nuevo_componente = $_POST["tipo_nuevo_componente"] ?? '';
         $costo = (isset($_POST["costo"]) && $_POST["costo"] !== '') ? $_POST["costo"] : null;
         $motivo = $_POST["motivo"] ?? '';
+        $fecha_cambio = $_POST["fecha_cambio"] ?? '';
+
+        // Validar fecha de cambio manual
+        if (empty($fecha_cambio)) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'error' => 'La fecha del cambio es obligatoria']);
+            exit;
+        }
+
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $fecha_cambio)) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'error' => 'Formato de fecha de cambio inválido (use YYYY-MM-DD)']);
+            exit;
+        }
+
+        $fecha_cambio_obj = DateTime::createFromFormat('Y-m-d', $fecha_cambio);
+        if ($fecha_cambio_obj === false) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'error' => 'No se pudo procesar la fecha del cambio']);
+            exit;
+        }
+
+        $hoyCambio = new DateTime();
+        $hoyCambio->setTime(0, 0, 0);
+        $fecha_cambio_obj->setTime(0, 0, 0);
+        if ($fecha_cambio_obj > $hoyCambio) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'error' => 'La fecha del cambio no puede ser futura']);
+            exit;
+        }
+
+        $fecha_cambio_sql = $fecha_cambio_obj->format('Y-m-d');
         
         // NUEVO: Validaciones más robustas
         if (empty($id_reparacion) || empty($id_activo) || empty($id_tipo_cambio) || empty($tipo_componente) || empty($tipo_nuevo_componente)) {
@@ -655,7 +687,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
                 id_procesador, id_ram, id_almacenamiento, id_tarjeta_video,
                 id_procesador_generico, id_ram_generico, id_almacenamiento_generico, id_tarjeta_video_generico,
                 id_tipo_cambio, fecha, motivo, costo, componente_retirado
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, GETDATE(), ?, ?, ?)";
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CAST(? AS DATE), ?, ?, ?)";
             
             $params_cambio = [
                 $id_activo, 
@@ -671,7 +703,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
                 $id_almacenamiento_generico_cambio,
                 $id_tarjeta_video_generico_cambio,
                 // Otros campos
-                $id_tipo_cambio, 
+                $id_tipo_cambio,
+                $fecha_cambio_sql,
                 $motivo, 
                 $costo, 
                 $componente_retirado_descripcion
@@ -794,7 +827,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         $costo = floatval($_POST["costo"]);
         // Validar que el costo no sea negativo
         if ($costo < 0) {
-            die("❌ Error: El costo no puede ser negativo.");
+            header('Content-Type: application/json');
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'El costo no puede ser negativo.']);
+            exit;
         }
     }
     
@@ -804,7 +840,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         $tiempo_inactividad = (int)$_POST["tiempo_inactividad"];
         // Validar que el tiempo de inactividad no sea negativo
         if ($tiempo_inactividad < 0) {
-            die("❌ Error: El tiempo de inactividad no puede ser negativo.");
+            header('Content-Type: application/json');
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'El tiempo de inactividad no puede ser negativo.']);
+            exit;
         }
     }
     
@@ -816,7 +855,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         
         // Validar formato de fecha Y-m-d
         if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $fecha)) {
-            die("❌ Error: Formato de fecha inválido. Use YYYY-MM-DD");
+            header('Content-Type: application/json');
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Formato de fecha inválido. Use YYYY-MM-DD']);
+            exit;
         }
         
         // Crear objeto DateTime desde la fecha recibida
@@ -824,15 +866,25 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         
         if ($fechaObj === false) {
             error_log("DEBUG: Error al crear DateTime desde: " . $fecha);
-            die("❌ Error: No se pudo procesar la fecha proporcionada.");
+            header('Content-Type: application/json');
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'No se pudo procesar la fecha proporcionada.']);
+            exit;
         }
         
-        // Validar que la fecha no sea futura
+        // CORREGIDO: Validar que la fecha no sea futura (solo rechazar si es MAYOR que hoy, no igual)
         $hoy = new DateTime();
         $hoy->setTime(0, 0, 0); // Establecer a medianoche para comparar solo fechas
+        $fechaObj->setTime(0, 0, 0); // También establecer la fecha del formulario a medianoche
+        
+        error_log("DEBUG: Comparando fechas - Fecha recibida: " . $fechaObj->format('Y-m-d') . " vs Hoy: " . $hoy->format('Y-m-d'));
         
         if ($fechaObj > $hoy) {
-            die("❌ Error: La fecha de reparación no puede ser posterior a hoy.");
+            error_log("DEBUG: Fecha rechazada - Es posterior a hoy");
+            header('Content-Type: application/json');
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'La fecha de reparación no puede ser posterior a hoy.']);
+            exit;
         }
         
         // NUEVO: Formatear la fecha específicamente para SQL Server usando el formato ISO 8601 completo
@@ -852,7 +904,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($accion === "crear") {
         // CORREGIDO: Validaciones adicionales para crear
         if (empty($fecha)) {
-            die("❌ Error: La fecha es obligatoria.");
+            header('Content-Type: application/json');
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'La fecha es obligatoria.']);
+            exit;
         }
         
         // NUEVO: Usar parámetros con tipo específico para SQL Server y agregar proveedor
@@ -866,7 +921,10 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     } elseif ($accion === "editar" && !empty($id_reparacion)) {
         // CORREGIDO: Validaciones adicionales para editar
         if (empty($fecha)) {
-            die("❌ Error: La fecha es obligatoria.");
+            header('Content-Type: application/json');
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'La fecha es obligatoria.']);
+            exit;
         }
         
         // NUEVO: Usar CAST para asegurar el tipo correcto en SQL Server y agregar proveedor
@@ -887,18 +945,39 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         $sql = "DELETE FROM reparacion WHERE id_reparacion = ?";
         $params = [$id_reparacion];
     } else {
-        die("Acción no válida o faltan datos.");
+        header('Content-Type: application/json');
+        http_response_code(400);
+        echo json_encode(['success' => false, 'error' => 'Acción no válida o faltan datos.']);
+        exit;
     }
 
     $stmt = sqlsrv_query($conn, $sql, $params);
 
     if ($stmt) {
         error_log("DEBUG: Operación exitosa para acción: " . $accion);
+        
+        // Si es una petición AJAX, devolver JSON
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => true, 'message' => 'Operación realizada correctamente']);
+            exit;
+        }
+        
+        // Si es una petición normal, redirigir
         header("Location: ../views/crud_reparacion.php?success=1");
         exit;
     } else {
         $errors = sqlsrv_errors();
         error_log("DEBUG: Error en SQL: " . print_r($errors, true));
+        
+        // Si es una petición AJAX, devolver JSON
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            header('Content-Type: application/json');
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => 'Error en la operación de base de datos', 'details' => $errors]);
+            exit;
+        }
+        
         echo "Error en la operación:<br>";
         print_r($errors);
     }

@@ -195,11 +195,28 @@ foreach (['Laptop','PC','Servidor'] as $tipo) {
     $cant_cambio_hw_tipo[$tipo]   = intval($row['cantidad'] ?? 0);
 }
 
-// 12) Años disponibles en reparacion (para selects)
+// 12) Años disponibles (reparación, cambio HW y compras) para selects
 $anios_reparacion = [];
-$sql = "SELECT DISTINCT YEAR(fecha) as anio FROM reparacion ORDER BY anio DESC";
+$sql = "SELECT DISTINCT YEAR(fecha) as anio FROM reparacion WHERE fecha IS NOT NULL
+        UNION
+        SELECT DISTINCT YEAR(fecha) as anio FROM cambio_hardware WHERE fecha IS NOT NULL
+        UNION
+        SELECT DISTINCT YEAR(fechaCompra) as anio FROM laptop WHERE fechaCompra IS NOT NULL
+        UNION
+        SELECT DISTINCT YEAR(fechaCompra) as anio FROM pc WHERE fechaCompra IS NOT NULL
+        UNION
+        SELECT DISTINCT YEAR(fechaCompra) as anio FROM servidor WHERE fechaCompra IS NOT NULL
+        ORDER BY anio DESC";
 $res = sqlsrv_query($conn, $sql);
-while ($row = sqlsrv_fetch_array($res, SQLSRV_FETCH_ASSOC)) { $anios_reparacion[] = intval($row['anio']); }
+while ($row = sqlsrv_fetch_array($res, SQLSRV_FETCH_ASSOC)) {
+    $anio = intval($row['anio']);
+    if ($anio > 0) {
+        $anios_reparacion[] = $anio;
+    }
+}
+if (!empty($anios_reparacion) && !in_array($selected_year, $anios_reparacion, true)) {
+    $selected_year = $anios_reparacion[0];
+}
 
 // 13) Tendencia de compra por precio (por mes/año)
 $tendencia_compra_activos = [ 'Laptop' => [], 'PC' => [], 'Servidor' => [] ];

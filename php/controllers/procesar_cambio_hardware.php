@@ -70,6 +70,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $componente_actual = $_POST['componente_actual'] ?? '';
     $costo = $_POST['costo'] ?? 0;
     $motivo = $_POST['motivo'] ?? '';
+    $fecha_cambio = $_POST['fecha_cambio'] ?? '';
+
+    // Validar fecha de cambio manual
+    if (empty($fecha_cambio)) {
+        echo json_encode([
+            'success' => false,
+            'error' => 'La fecha del cambio es obligatoria'
+        ]);
+        exit;
+    }
+
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $fecha_cambio)) {
+        echo json_encode([
+            'success' => false,
+            'error' => 'Formato de fecha de cambio inválido (use YYYY-MM-DD)'
+        ]);
+        exit;
+    }
+
+    $fecha_cambio_obj = DateTime::createFromFormat('Y-m-d', $fecha_cambio);
+    if ($fecha_cambio_obj === false) {
+        echo json_encode([
+            'success' => false,
+            'error' => 'No se pudo procesar la fecha del cambio'
+        ]);
+        exit;
+    }
+
+    $hoyCambio = new DateTime();
+    $hoyCambio->setTime(0, 0, 0);
+    $fecha_cambio_obj->setTime(0, 0, 0);
+    if ($fecha_cambio_obj > $hoyCambio) {
+        echo json_encode([
+            'success' => false,
+            'error' => 'La fecha del cambio no puede ser futura'
+        ]);
+        exit;
+    }
+
+    $fecha_cambio_sql = $fecha_cambio_obj->format('Y-m-d');
     
     // Validar datos requeridos - diferentes para cada tipo de cambio
     if (empty($id_reparacion) || empty($id_tipo_cambio) || empty($tipo_componente)) {
@@ -215,8 +255,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         // Construir SQL dinámicamente con el campo específico del componente
         $campos_sql = "id_activo, id_reparacion, id_tipo_cambio, fecha, motivo, costo, componente_retirado";
-        $valores_sql = "?, ?, ?, GETDATE(), ?, ?, ?";
-        $params = [$id_activo, $id_reparacion, $id_tipo_cambio, $motivo, $costo, $componente_retirado_desc];
+        $valores_sql = "?, ?, ?, CAST(? AS DATE), ?, ?, ?";
+        $params = [$id_activo, $id_reparacion, $id_tipo_cambio, $fecha_cambio_sql, $motivo, $costo, $componente_retirado_desc];
         
         // Agregar campo específico del componente
         if (!empty($campos_especificos)) {

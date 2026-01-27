@@ -45,6 +45,7 @@ function guardarCambioHardware() {
     const tipoCambio = form.querySelector('#idTipoCambio').value;
     const tipoComponente = form.querySelector('#tipoComponente').value;
     const componenteExistente = form.querySelector('#idComponenteExistente').value;
+    const fechaCambio = form.querySelector('#fechaCambio').value;
     
     console.log('🔍 Validando campos:');
     console.log('  tipoCambio:', tipoCambio);
@@ -58,6 +59,18 @@ function guardarCambioHardware() {
     
     if (!tipoComponente) {
         mostrarMensaje('Debe seleccionar el tipo de componente', 'error');
+        return;
+    }
+
+    if (!fechaCambio) {
+        mostrarMensaje('Debe seleccionar la fecha del cambio', 'error');
+        return;
+    }
+
+    // Validar que la fecha no sea futura
+    const hoyISO = new Date().toISOString().split('T')[0];
+    if (fechaCambio > hoyISO) {
+        mostrarMensaje('La fecha del cambio no puede ser futura', 'error');
         return;
     }
     
@@ -75,6 +88,7 @@ function guardarCambioHardware() {
     formData.set('id_activo', document.getElementById('idActivoCambio')?.value || '');
     formData.set('id_tipo_cambio', tipoCambio);
     formData.set('tipo_componente', tipoComponente);
+    formData.set('fecha_cambio', fechaCambio);
     
     // Solo enviar componente existente si NO es retirar
     if (tipoCambio !== '3') {

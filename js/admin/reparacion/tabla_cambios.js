@@ -89,6 +89,7 @@ function crearFilaCambioHardware(cambio) {
         <td>${cambio.componente_retirado || 'N/A'}</td>
         <td>${cambio.costo ? '$ ' + parseFloat(cambio.costo).toFixed(2) : '$ 0.00'}</td>
         <td>${cambio.motivo || 'N/A'}</td>
+        <td>${cambio.fecha_formateada || cambio.fecha || '-'}</td>
         <td>
             <button type="button" class="btn-icon btn-eliminar" 
                     onclick="eliminarCambioHardware(${cambio.id_cambio_hardware})" 

@@ -365,6 +365,7 @@ $proveedores = sqlsrv_query($conn, $sqlProveedores);
                                 <th>Componente Retirado</th>
                                 <th>Costo</th>
                                 <th>Motivo</th>
+                                <th>Fecha</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -400,6 +401,13 @@ $proveedores = sqlsrv_query($conn, $sqlProveedores);
                                         <option value="almacenamiento">Almacenamiento</option>
                                         <option value="tarjeta_video">Tarjeta de Video</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Fecha del Cambio *</label>
+                                    <input type="date" name="fecha_cambio" id="fechaCambio" required max="<?= date('Y-m-d') ?>">
                                 </div>
                             </div>
 
@@ -497,6 +505,79 @@ $proveedores = sqlsrv_query($conn, $sqlProveedores);
     <!-- Incluir JavaScript del Sidebar -->
     <script src="../../js/admin/sidebar.js"></script>
     <script>
+        // ========================================
+        // MANEJO DE ENVÍO DEL FORMULARIO POR AJAX
+        // ========================================
+        document.addEventListener("DOMContentLoaded", function() {
+            const formReparacion = document.getElementById('formReparacion');
+            
+            if (formReparacion) {
+                formReparacion.addEventListener('submit', function(e) {
+                    e.preventDefault(); // Prevenir envío tradicional
+                    
+                    // Crear FormData desde el formulario
+                    const formData = new FormData(this);
+                    
+                    // Mostrar indicador de carga
+                    const btnGuardar = document.getElementById('btn-Guardar');
+                    const textoOriginal = btnGuardar.textContent;
+                    btnGuardar.disabled = true;
+                    btnGuardar.textContent = 'Guardando...';
+                    
+                    // Enviar por AJAX
+                    fetch('../controllers/procesar_reparacion.php', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        const contentType = response.headers.get('content-type');
+                        
+                        // Si es JSON, parsearlo
+                        if (contentType && contentType.includes('application/json')) {
+                            return response.json().then(data => {
+                                if (!response.ok) {
+                                    throw new Error(data.error || 'Error en la operación');
+                                }
+                                return data;
+                            });
+                        }
+                        
+                        // Si no es JSON, es una redirección exitosa tradicional
+                        if (response.ok) {
+                            return { success: true, redirect: true };
+                        }
+                        
+                        throw new Error('Error en la operación');
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            alert('✅ Reparación guardada correctamente');
+                            
+                            // Cerrar modal
+                            document.getElementById('modalReparacion').style.display = 'none';
+                            
+                            // Recargar la página para actualizar la tabla
+                            window.location.reload();
+                        } else if (data.error) {
+                            alert('❌ Error: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('❌ Error: ' + error.message);
+                    })
+                    .finally(() => {
+                        // Restaurar botón
+                        btnGuardar.disabled = false;
+                        btnGuardar.textContent = textoOriginal;
+                    });
+                });
+            }
+        });
+
         // NUEVO: Función para mostrar/ocultar campo de proveedor
         document.addEventListener("DOMContentLoaded", function() {
             const lugarSelect = document.getElementById('id_lugar_reparacion');
